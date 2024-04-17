@@ -1,0 +1,10 @@
+streamlit
+python-docx
+openai==0.27.8
+requests
+pdfminer.six
+docx2txt
+weasyprint
+PyPDF2
+pdf2docx
+spire.doc
