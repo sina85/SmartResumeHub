@@ -8,6 +8,7 @@ from pdfminer.high_level import extract_text
 from docx import Document
 from gpt import *
 import streamlit as st
+from ocr import *
 import pdb
 
 def extract_text_from_pdf(pdf_file):
@@ -43,25 +44,19 @@ def process_resume(client, text, flag):
         licenses = future_licenses.result()
         certification = future_certification.result()
 
-        print('Detail Extraction Finished! Formatting the data')
-
-#   with concurrent.futures.ThreadPoolExecutor() as executor:
-#        fpersonal_info = executor.submit(format_personal_details_into_html, personal)
-#        feducational_info = executor.submit(format_educational_details_into_html, educational)
-#        fwork_info = executor.submit(format_work_experience_details_into_html, work, flag)
-#       fother_info = executor.submit(format_other_details_into_html, licenses, certification)
-#
-#        personal_info = fpersonal_info.result()
-#        educational_info = feducational_info.result()
-#        work_info = fwork_info.result()
-#        other_info = fother_info.result()
-
+    print('Detail Extraction Finished! Formatting the data')
     start_time = time.time()
 
-    personal_info = format_personal_details_into_html(personal)
-    educational_info = format_educational_details_into_html(educational)
-    work_info = format_work_experience_details_into_html(work, flag)
-    other_info = format_other_details_into_html(licenses, certification)
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        fpersonal_info = executor.submit(format_personal_details_into_html, personal)
+        feducational_info = executor.submit(format_educational_details_into_html, educational)
+        fwork_info = executor.submit(format_work_experience_details_into_html, work, flag)
+        fother_info = executor.submit(format_other_details_into_html, licenses, certification)
+
+        personal_info = fpersonal_info.result()
+        educational_info = feducational_info.result()
+        work_info = fwork_info.result()
+        other_info = fother_info.result()
 
     final_response = format_final_template(personal=personal_info, educational=educational_info, work_experience=work_info, other=other_info)
     final_html = get_final_html(final_response).replace('```html', '').replace('```', '')
@@ -92,15 +87,15 @@ def process_each_file(client, all_files):
         filename, file_content = file.name, file.getvalue()
         text = extract_text_from_file(filename, file_content)
         if "pdf" in filename and len(text) < 20:
-            # Process OCR and update text_dr
-            # if process_OCR returns less than 20 bytes of text then we will do the following
-            # 
-            # processed_file_list_dr = processed_files_doctors
-            # processed_file_list_dr.append((f"{filename_dr.split('.pdf')[0]}-failed.pdf", file_content_dr))
-            # We have to implement a failed functionality, where if the OCR returns a text less than 20 bytes
-            # We would return something and print the error message!
-            print(f"Failed to process file: {filename} due to insufficient text.")
-            return f"Failed to process file: {filename}", None
+            OCR_text = extract_text_from_image(filename)
+
+            if len(OCR_text) < 20:
+                return type, f"Processed file: {filename} failed!", (f"{filename.split('.pdf')[0]}-failed.docx", 0)
+            else:
+                text = OCR_text
+            
+            pdb.set_trace()
+
         doc_bytes = process_resume(client, text, True)
 
     elif type == 'nurses':
@@ -110,6 +105,8 @@ def process_each_file(client, all_files):
         text = extract_text_from_file(filename, file_content)
 
         if "pdf" in filename and len(text) < 20:
+            OCR_text = extract_text_from_image(filename)
+
             # Process OCR and update text_dr
             # if process_OCR returns less than 20 bytes of text then we will do the following
             #processed_file_list_nr = processed_files_nurses

@@ -34,11 +34,8 @@ def format_work_experience_details_into_html(work_experiences, T):
     <h3 class="text-xl mt-8 mb-4">Work Experience</h3>
     <table style="border: 0px;">
     """
-    print("Starting to format work experiences...")  # Debug print
     for work_experience_list in work_experiences:
-        print(f"Processing list: {work_experience_list}")  # Debug print
         for work_experience in work_experience_list.experiences:
-            print(f"Adding job: {work_experience.position} at {work_experience.company}")  # Debug print
             work_info_html += f"""
             <tr>
                 <td class="table-cell date-column">{work_experience.start_date} - {work_experience.end_date}</td>
