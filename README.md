@@ -33,6 +33,4 @@ Instructions on how to set up and use **SmartResumeHub** will be provided, inclu
 
 ## License
 
-SmartResumeHub is released under the MIT License. See the LICENSE file for more details.
-
-This project is actively seeking contributors and feedback to make it more robust and feature-rich. Whether you're a seasoned developer or a beginner looking to get involved in open-source projects, your input and contributions would be greatly appreciated!
+SmartResumeHub is private repo!
