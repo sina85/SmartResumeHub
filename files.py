@@ -28,23 +28,28 @@ def extract_text_from_file(filename, file_content):
         raise ValueError("Unsupported file format")
     
 
-def process_resume(client, text, flag):
+def process_resume(client, text, filename, flag):
+
+    meta_data = extract_metadata(client, text, filename)
+
     with concurrent.futures.ThreadPoolExecutor() as executor:
         
-        future_personal = executor.submit(extract_personal_details, client, text)
-        future_educational = executor.submit(extract_education_details, client, text)
-        future_work = executor.submit(extract_work_experience, client, text)
-        future_licenses = executor.submit(extract_all_licenses, client, text)
-        future_certification = executor.submit(extract_all_certifications, client, text)
+        future_pe = executor.submit(extract_personal_and_educational_details, client, text, filename, meta_data)
+        future_work = executor.submit(extract_work_experience, client, text, filename, meta_data)
+        future_lc = executor.submit(extract_licenses_and_certifications, client, text, filename, meta_data)
 
         # Await the results of the futures
-        personal = future_personal.result()
-        educational = future_educational.result()
+        pe = future_pe.result()
         work = future_work.result()
-        licenses = future_licenses.result()
-        certification = future_certification.result()
+        lc = future_lc.result()
 
-    print('Detail Extraction Finished! Formatting the data')
+    print(f"Detail Extraction Finished! Formatting the data for {filename}")
+
+    personal = pe.pdetail
+    educational = pe.edetail
+    licenses = lc.licenses
+    certification = lc.certifications
+
     start_time = time.time()
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -73,7 +78,7 @@ def process_resume(client, text, flag):
     
     elapsed_time = time.time() - start_time  # End timing
 
-    print(f"Formating files took {elapsed_time} seconds")  # Print timing
+    print(f"Formating file {filename} took {elapsed_time} seconds")  # Print timing
 
     return doc_bytes
 
@@ -81,41 +86,25 @@ def process_each_file(client, all_files):
     start_time = time.time()  # Start timing
 
     file, type = all_files
-    # Example processing logic
+
+    filename, file_content = file.name, file.getvalue()
+
+    text = extract_text_from_file(filename, file_content)
+
+    if "pdf" in filename and len(text) < 20:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        resume_dir = os.path.join(current_dir, 'Resume_Sample')
+        full_path = os.path.join(resume_dir, filename)
+        OCR_text = extract_text_from_image(full_path)
+        if len(OCR_text) < 20:
+            return type, f"Processed file: {filename} failed!", (f"{filename.split('.pdf')[0]}-failed.docx", 0)
+        else:
+            text = OCR_text
+
     if type == 'doctors':
-        # Process doctor file
-        filename, file_content = file.name, file.getvalue()
-        text = extract_text_from_file(filename, file_content)
-        if "pdf" in filename and len(text) < 20:
-            OCR_text = extract_text_from_image(filename)
-
-            if len(OCR_text) < 20:
-                return type, f"Processed file: {filename} failed!", (f"{filename.split('.pdf')[0]}-failed.docx", 0)
-            else:
-                text = OCR_text
-            
-            pdb.set_trace()
-
-        doc_bytes = process_resume(client, text, True)
-
-    elif type == 'nurses':
-        # Process nurse file
-        filename, file_content = file.name, file.getvalue()
-    
-        text = extract_text_from_file(filename, file_content)
-
-        if "pdf" in filename and len(text) < 20:
-            OCR_text = extract_text_from_image(filename)
-
-            # Process OCR and update text_dr
-            # if process_OCR returns less than 20 bytes of text then we will do the following
-            #processed_file_list_nr = processed_files_nurses
-            #processed_file_list_nr.append((f"{filename_nr.split('.pdf')[0]}-failed.pdf", file_content_nr))
-            print(f"Failed to process file: {filename} due to insufficient text.")
-            return f"Failed to process file: {filename}", None
-
-        doc_bytes = process_resume(client, text, False)
-
+        doc_bytes = process_resume(client, text, filename, True)
+    elif type == 'nurses':    
+        doc_bytes = process_resume(client, text, filename, False)
 
     elapsed_time = time.time() - start_time  # End timing
 

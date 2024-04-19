@@ -1,8 +1,7 @@
 from utils import *
 from spire.doc import *
 from spire.doc.common import *
-from pydantic import BaseModel, Field, field_validator
-from typing import Optional, List
+from pydantic import BaseModel, field_validator
 
 class License(BaseModel):
     license_type: str
@@ -51,6 +50,7 @@ class EducationDetail(BaseModel):
             return str(v)
         return 'Not Specified'
 
+
 class WorkExperience(BaseModel):
     position: str
     company: str
@@ -85,9 +85,47 @@ class SectionMetadata(BaseModel):
     description: str
     entry_count: int
 
+
+class Personal_Educational(BaseModel):
+    pdetail: PersonalDetails
+    edetail: EducationList
+
+class License_Certification(BaseModel):
+    licenses: LicenseList
+    certifications: CertificationList
+
+
+
+class SectionInfo(BaseModel):
+    Type: str
+    format: str
+    number_of_items: str
+
+    class Config:
+        json_schema_extra = {
+            "properties": {
+                "Type": {
+                    "description": "Indicates the type of the section (Personal Detail, Educational Details, Work Experience, Licenses, Certifications)"
+                },
+                "format": {
+                    "description" : "Comment on the format or structure of this field"
+                },
+                "number_of_items": {
+                    "description" : "Count how many items are in this section"
+                }
+            }
+        }
+    @field_validator('number_of_items')
+    def ensure_string(cls, v):
+        if v is not None:
+            return str(v)
+        return 'Not Specified'
+
+
 class ResumeMetadata(BaseModel):
-    sections: List[SectionMetadata]
-    keyword_density: dict  # Maps sections to keyword density information
-    date_range: str
-    formatting: str
-    summary_content: str
+    personal_details: SectionInfo
+    educational_details: SectionInfo
+    work_experience: SectionInfo
+    certifications: SectionInfo
+    licenses: SectionInfo
+    additional_comments: str

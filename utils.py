@@ -57,8 +57,6 @@ def format_work_experience_details_into_html(work_experiences, T):
         """
     
     work_info_html += "</table>"
-    print("Final HTML content:")  # Debug print
-    print(work_info_html)  # Debug print
     return work_info_html
 
 def format_other_details_into_html(license_list, certification_list):
@@ -97,78 +95,77 @@ def format_final_template(personal, educational, work_experience, other):
 def get_final_html(final_response):
     return f"""
         <style>
-        section {{
-            margin: 0 auto; /* Centers the section */
-            padding: 20px; /* Adds padding around the section */
-            max-width: 800px; /* Sets a maximum width for readability */
-            font-family: 'Arial', sans-serif; /* Sets a readable font */
-        }}
-
-        /* Centering the top part (Doctor's info) */
-        section > h1, 
-        section > h2, 
-        section > p {{
-            text-align: center; /* Center alignment for name, address, and contact */
-        }}
-
-        h1, h2, h3, h4, p, li {{
-            margin: 0 0 10px 0; /* Adds consistent spacing below each element */
-            line-height: 1.6; /* Improves readability with line spacing */
-        }}
-
-        h1 {{
-            font-size: 40px; /* Larger font size for the name */
-            margin-bottom: 5px; /* Reduces space below the name */
-        }}
-
-        h2 {{
-            font-size: 16px; /* Smaller font size for address */
-            color: #555; /* Slightly muted color for less emphasis */
-        }}
-
-        h3 {{
-            font-size: 26px; /* Emphasizes section headers */
-            margin-top: 30px; /* Adds more space above section headers */
-            text-align: left; /* Left alignment for section headers */
-        }}
-
-        h4 {{
-            font-size: 18px; /* Slightly larger font size for sub-headers */
-            color: #333; /* Dark color for emphasis */
-            text-align: left; /* Left alignment for sub-headers */
-        }}
-
-        p, li {{
-            font-size: 14px; /* Standard font size for body text */
-            text-align: left; /* Left alignment for paragraphs and list items */
-        }}
-
-        ul {{
-            padding-left: 20px; /* Indents bullet points */
-        }}
-
-        table {{
-            border: 0px;
-        }}
-
-        @media (max-width: 768px) {{
             section {{
-                padding: 15px; /* Reduces padding on smaller screens */
+                margin: 0 auto; /* Centers the section */
+                padding: 20px; /* Adds padding around the section */
+                max-width: 800px; /* Sets a maximum width for readability */
+                font-family: 'Arial', sans-serif; /* Sets a readable font */
             }}
-        }}
-        /* CSS for table-like layout */
-        .table-row {{
-            display: table-row; /* Makes the div behave like a row in a table */
-        }}
 
-        .table-cell {{
-            display: table-cell; /* Makes the div behave like a cell in a table */
-            vertical-align: top; /* Aligns content to the top of the cell */
-            padding: 3px; /* Adds some padding inside each cell for spacing */
-        }}
+            /* Centering the top part (Doctor's info) */
+            section > h1, 
+            section > h2, 
+            section > p {{
+                text-align: center; /* Center alignment for name, address, and contact */
+            }}
 
-        .date-column {{
-            width: 20%; /* Sets the width of the date column */
-            text-align: left; /* Aligns the text to the left */
-        }}</style>\n{final_response}
+            h1, h2, h3, h4, p, li {{
+                margin: 0 0 10px 0; /* Adds consistent spacing below each element */
+                line-height: 1.6; /* Improves readability with line spacing */
+            }}
+
+            h1 {{
+                font-size: 40px; /* Larger font size for the name */
+                margin-bottom: 5px; /* Reduces space below the name */
+            }}
+
+            h2 {{
+                font-size: 16px; /* Smaller font size for address */
+                color: #555; /* Slightly muted color for less emphasis */
+            }}
+
+            h3 {{
+                font-size: 26px; /* Emphasizes section headers */
+                margin-top: 30px; /* Adds more space above section headers */
+                text-align: left; /* Left alignment for section headers */
+            }}
+
+            h4 {{
+                font-size: 18px; /* Slightly larger font size for sub-headers */
+                color: #333; /* Dark color for emphasis */
+                text-align: left; /* Left alignment for sub-headers */
+            }}
+
+            p, li {{
+                font-size: 14px; /* Standard font size for body text */
+                text-align: left; /* Left alignment for paragraphs and list items */
+            }}
+
+            ul {{
+                padding-left: 20px; /* Indents bullet points */
+            }}
+
+            @media (max-width: 768px) {{
+                section {{
+                    padding: 15px; /* Reduces padding on smaller screens */
+                }}
+            }}
+            
+            /* CSS for table-like layout */
+            .table-row {{
+                display: table-row; /* Makes the div behave like a row in a table */
+            }}
+
+            .table-cell {{
+                display: table-cell; /* Makes the div behave like a cell in a table */
+                vertical-align: top; /* Aligns content to the top of the cell */
+                padding: 3px; /* Adds some padding inside each cell for spacing */
+            }}
+
+            .date-column {{
+                width: 20%; /* Sets the width of the date column */
+                text-align: left; /* Aligns the text to the left */
+            }}
+        </style>
+        {final_response}
     """

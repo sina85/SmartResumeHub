@@ -2,5 +2,6 @@ data.html
 temp
 config.json
 venv/
-Resume\ Sample/
+Resume_Sample/
 __pycache__/
+chat_debug.py
