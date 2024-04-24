@@ -11,6 +11,7 @@ import streamlit as st
 from ocr import *
 import pdb
 
+
 def extract_text_from_pdf(pdf_file):
     return extract_text(pdf_file)
 
@@ -43,7 +44,7 @@ def process_resume(client, text, filename, flag):
         work = future_work.result()
         lc = future_lc.result()
 
-    print(f"Detail Extraction Finished! Formatting the data for {filename}")
+    log_debug_info(f"Detail Extraction Finished! Formatting the data for {filename}")
 
     personal = pe.pdetail
     educational = pe.edetail
@@ -78,7 +79,7 @@ def process_resume(client, text, filename, flag):
     
     elapsed_time = time.time() - start_time  # End timing
 
-    print(f"Formating file {filename} took {elapsed_time} seconds")  # Print timing
+    log_debug_info(f"Formating file {filename} took {elapsed_time} seconds")
 
     return doc_bytes
 
@@ -108,7 +109,7 @@ def process_each_file(client, all_files):
 
     elapsed_time = time.time() - start_time  # End timing
 
-    print(f"Processing files took {elapsed_time} seconds")  # Print timing
+    log_debug_info(f"Processing files took {elapsed_time} seconds")
 
     return type, f"Processed file: {filename}", (f"{filename.split('.pdf')[0]}-done.docx", doc_bytes)
 

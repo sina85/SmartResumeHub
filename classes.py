@@ -2,6 +2,8 @@ from utils import *
 from spire.doc import *
 from spire.doc.common import *
 from pydantic import BaseModel, field_validator
+import datetime
+import os
 
 class License(BaseModel):
     license_type: str
@@ -129,3 +131,19 @@ class ResumeMetadata(BaseModel):
     certifications: SectionInfo
     licenses: SectionInfo
     additional_comments: str
+
+def log_debug_info(message):
+    # Get the current timestamp
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    # Create the log directory if it doesn't exist
+    log_directory = "logs"
+    os.makedirs(log_directory, exist_ok=True)
+    
+    # Create the log file path
+    log_file = os.path.join(log_directory, "debug.log")
+    
+    # Write the log message with timestamp to the file
+    with open(log_file, "a") as file:
+        log_message = f"{timestamp} - {message}\n"
+        file.write(log_message)
