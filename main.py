@@ -5,17 +5,45 @@ from files import *
 import json
 
 def main():
+    
+    log_debug_info('Starting Application...')
+    st.title("Tribal Resume Converter")
+
     api_key = ''
     config_path = 'config.json'
-    with open(config_path, 'r') as file:
-        config = json.load(file)
-        api_key = config.get('api_key', '')
 
-    # Usage
-    client = OpenAI(api_key=api_key)
-    client = instructor.from_openai(client)
+    try:
+        with open(config_path, 'r') as file:
+            config = json.load(file)
+            api_key = config.get('api_key', '')
 
-    st.title("Tribal Resume Converter")
+        if not api_key:
+            error_message = 'API key not found in the configuration file.'
+            log_debug_info(error_message)
+            st.error(error_message)
+            st.stop()
+
+        client = OpenAI(api_key=api_key)
+        client = instructor.from_openai(client)
+        log_debug_info('API key loaded successfully.')
+
+    except FileNotFoundError:
+        error_message = 'Configuration file not found.'
+        log_debug_info(error_message)
+        st.error(error_message)
+        st.stop()
+
+    except json.JSONDecodeError:
+        error_message = 'Invalid JSON format in the configuration file.'
+        log_debug_info(error_message)
+        st.error(error_message)
+        st.stop()
+
+    except Exception as e:
+        error_message = f'An error occurred while loading the API key: {str(e)}'
+        log_debug_info(error_message)
+        st.error(error_message)
+        st.stop()
     
     # Initialize session state for storing processed files
     if 'processed_files_doctors' not in st.session_state:
