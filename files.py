@@ -33,6 +33,8 @@ def process_resume(client, text, filename, flag):
 
     meta_data = extract_metadata(client, text, filename)
 
+    start_time = time.time()
+
     with concurrent.futures.ThreadPoolExecutor() as executor:
         
         future_pe = executor.submit(extract_personal_and_educational_details, client, text, filename, meta_data)
@@ -43,8 +45,10 @@ def process_resume(client, text, filename, flag):
         pe = future_pe.result()
         work = future_work.result()
         lc = future_lc.result()
+    
+    elapsed_time = time.time() - start_time
 
-    log_debug_info(f"Detail Extraction Finished! Formatting the data for {filename}")
+    log_debug_info(f"Detail Extraction took {elapsed_time} for {filename}. Formatting the data!")
 
     personal = pe.pdetail
     educational = pe.edetail
@@ -93,10 +97,9 @@ def process_each_file(client, all_files):
     text = extract_text_from_file(filename, file_content)
 
     if "pdf" in filename and len(text) < 20:
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        resume_dir = os.path.join(current_dir, 'Resume_Sample')
-        full_path = os.path.join(resume_dir, filename)
-        OCR_text = extract_text_from_image(full_path)
+        
+        OCR_text = extract_text_from_image(file_content)
+
         if len(OCR_text) < 20:
             return type, f"Processed file: {filename} failed!", (f"{filename.split('.pdf')[0]}-failed.docx", 0)
         else:
@@ -109,7 +112,7 @@ def process_each_file(client, all_files):
 
     elapsed_time = time.time() - start_time  # End timing
 
-    log_debug_info(f"Processing files took {elapsed_time} seconds")
+    log_debug_info(f"Processing file {filename} took {elapsed_time} seconds")
 
     return type, f"Processed file: {filename}", (f"{filename.split('.pdf')[0]}-done.docx", doc_bytes)
 

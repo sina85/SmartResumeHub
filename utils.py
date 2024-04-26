@@ -14,7 +14,6 @@ def format_educational_details_into_html(education_list):
                 <td class="table-cell">
                     <h4 class="text-lg">{ed.degree} in {ed.major}</h4>
                     <p>{ed.institution}, {ed.location}</p>
-                    <p>Honors: {ed.honors}</p>
                     <p>Contact: {ed.contact}</p>
                 </td>
             </tr>"""
@@ -42,7 +41,6 @@ def format_work_experience_details_into_html(work_experiences, T):
                 <td class="table-cell">
                     <h4 class="text-lg">{work_experience.position} at {work_experience.company}, {work_experience.department or ''}</h4>
                     <p>Location: {work_experience.location}</p>
-                    <p>Hours Worked: {work_experience.hours_worked}</p>
                     <p>Description: {work_experience.description}</p>
                 </td>
             </tr>
@@ -60,8 +58,8 @@ def format_work_experience_details_into_html(work_experiences, T):
     return work_info_html
 
 def format_other_details_into_html(license_list, certification_list):
-    licenses_html = "<ul>" + "".join([f"<li>{lic.license_type} - {lic.license_number}, {lic.state_or_country} (Exp: {lic.expiration})</li>" for lic in license_list.licenses]) + "</ul>"
-    certifications_html = "<ul>" + "".join([f"<li>{cert.certification_name} - Issued by {cert.issuing_organization} (Exp: {cert.expiration})</li>" if cert.expiration else f"<li>{cert.certification_name} - Issued by {cert.issuing_organization}</li>" for cert in certification_list.certifications]) + "</ul>"
+    licenses_html = "<ul>" + "".join([f"<li>{lic.license_name} (Exp: {lic.expiration})</li>" for lic in license_list.licenses]) + "</ul>"
+    certifications_html = "<ul>" + "".join([f"<li>{cert.certification_name} (Exp: {cert.expiration})</li>" if cert.expiration else f"<li>{cert.certification_name}</li>" for cert in certification_list.certifications]) + "</ul>"
     
     return f"""
     <!-- Licensure -->
