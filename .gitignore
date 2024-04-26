@@ -2,6 +2,7 @@ data.html
 temp
 config.json
 venv/
+logs/
 Resume_Sample/
 __pycache__/
 chat_debug.py
