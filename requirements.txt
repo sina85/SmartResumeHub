@@ -8,3 +8,6 @@ weasyprint
 PyPDF2
 pdf2docx
 spire.doc
+instructor
+pytesseract
+pdf2image

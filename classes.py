@@ -6,22 +6,19 @@ import datetime
 import os
 
 class License(BaseModel):
-    license_type: str
-    license_number: str
-    state_or_country: str
+    license_name: str
     expiration: str
 
-    @field_validator('license_type', 'license_number', 'state_or_country', 'expiration')
+    @field_validator('license_name', 'expiration')
     def ensure_string(cls, v):
         return str(v) if v is not None else "Not Specified"
 
 
 class Certification(BaseModel):
     certification_name: str
-    issuing_organization: str
     expiration: str
 
-    @field_validator('certification_name', 'issuing_organization', 'expiration')
+    @field_validator('certification_name', 'expiration')
     def ensure_string(cls, v):
         return str(v) if v is not None else "Not Specified"
 
@@ -43,10 +40,9 @@ class EducationDetail(BaseModel):
     degree: str
     major: str
     graduation_year: str
-    honors: str
     contact: str
     
-    @field_validator('institution','location','degree','major','graduation_year','honors','contact')
+    @field_validator('institution','location','degree','major','graduation_year','contact')
     def ensure_string(cls, v):
         if v is not None:
             return str(v)
@@ -60,10 +56,9 @@ class WorkExperience(BaseModel):
     location: str
     start_date: str
     end_date: str
-    hours_worked: str
     description: str
 
-    @field_validator('position','company','department','location','start_date','end_date','hours_worked','description')
+    @field_validator('position','company','department','location','start_date','end_date','description')
     def ensure_string(cls, v):
         if v is not None:
             return str(v)
