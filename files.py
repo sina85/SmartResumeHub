@@ -1,16 +1,15 @@
 import time
-import io
 import docx2txt
 import zipfile
 import tempfile
 import concurrent.futures
 from pdfminer.high_level import extract_text
-from docx import Document
+from io import BytesIO
 from gpt import *
+from utils import *
 import streamlit as st
 from ocr import *
-import pdb
-
+from htmldocx import HtmlToDocx
 
 def extract_text_from_pdf(pdf_file):
     return extract_text(pdf_file)
@@ -24,10 +23,9 @@ def extract_text_from_file(filename, file_content):
             tmp_file.write(file_content)
             return extract_text_from_pdf(tmp_file.name)
     elif filename.lower().endswith('.docx'):
-        return extract_text_from_docx(io.BytesIO(file_content))
+        return extract_text_from_docx(BytesIO(file_content))
     else:
         raise ValueError("Unsupported file format")
-    
 
 def process_resume(client, text, filename, flag):
 
@@ -48,7 +46,8 @@ def process_resume(client, text, filename, flag):
     
     elapsed_time = time.time() - start_time
 
-    log_debug_info(f"Detail Extraction took {elapsed_time} for {filename}. Formatting the data!")
+    log_debug_info(f"[F] Detail Extraction took {elapsed_time} for {filename}.")
+    log_debug_info(f"[S] Formatting the data!")
 
     personal = pe.pdetail
     educational = pe.edetail
@@ -58,34 +57,29 @@ def process_resume(client, text, filename, flag):
     start_time = time.time()
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        fpersonal_info = executor.submit(format_personal_details_into_html, personal)
-        feducational_info = executor.submit(format_educational_details_into_html, educational)
-        fwork_info = executor.submit(format_work_experience_details_into_html, work, flag)
-        fother_info = executor.submit(format_other_details_into_html, licenses, certification)
+        fpersonal_info = executor.submit(format_personal_details_into_html, personal, filename)
+        feducational_info = executor.submit(format_educational_details_into_html, educational, filename)
+        fwork_info = executor.submit(format_work_experience_details_into_html, work, flag, filename)
+        fother_info = executor.submit(format_other_details_into_html, licenses, certification, filename)
 
         personal_info = fpersonal_info.result()
         educational_info = feducational_info.result()
         work_info = fwork_info.result()
         other_info = fother_info.result()
 
-    final_response = format_final_template(personal=personal_info, educational=educational_info, work_experience=work_info, other=other_info)
-    final_html = get_final_html(final_response).replace('```html', '').replace('```', '')
+    final_response = format_final_template(personal=personal_info, educational=educational_info, work_experience=work_info, other=other_info, filename=filename)
+    #final_html = get_final_html(final_response).replace('```html', '').replace('```', '')
 
-    document = Document()
-    sec = document.AddSection()
-    paragraph = sec.AddParagraph()
-    paragraph.AppendHTML(final_html)
-
-    with tempfile.NamedTemporaryFile(suffix=".docx", delete=False) as temp_file:
-        document.SaveToFile(temp_file.name, FileFormat.Docx2019)
-        with open(temp_file.name, 'rb') as temp_file_read:
-            doc_bytes = temp_file_read.read()
-    
     elapsed_time = time.time() - start_time  # End timing
 
-    log_debug_info(f"Formating file {filename} took {elapsed_time} seconds")
+    log_debug_info(f"[F] Formating file {filename} took {elapsed_time} seconds!")
 
-    return doc_bytes
+    new_parser = HtmlToDocx()
+    doc = new_parser.parse_html_string(final_response)
+    output_stream = BytesIO()
+    doc.save(output_stream)
+
+    return output_stream.getvalue()
 
 def process_each_file(client, all_files):
     start_time = time.time()  # Start timing
@@ -112,7 +106,7 @@ def process_each_file(client, all_files):
 
     elapsed_time = time.time() - start_time  # End timing
 
-    log_debug_info(f"Processing file {filename} took {elapsed_time} seconds")
+    log_debug_info(f"[F] Processing file {filename} took {elapsed_time} seconds")
 
     return type, f"Processed file: {filename}", (f"{filename.split('.pdf')[0]}-done.docx", doc_bytes)
 
@@ -144,7 +138,7 @@ def process_files(client, uploaded_files_doctors, uploaded_files_nurses):
     return processed_files_dr, processed_files_nr
 
 def download_processed_files(processed_files, type):
-    zip_buffer = io.BytesIO()
+    zip_buffer = BytesIO()
     with zipfile.ZipFile(zip_buffer, 'a', zipfile.ZIP_DEFLATED, False) as zip_file:
         for file_name, file_data in processed_files:
             zip_file.writestr(file_name, file_data)

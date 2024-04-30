@@ -1,84 +1,112 @@
-def format_personal_details_into_html(personal_details):
-    return f"""
-    <!-- Name and Contact Information -->
-    <h1 style="text-align: center" class="leading-none text-3xl">{personal_details.name}</h1>
-    <h2 style="text-align: center" class="text-sm">{personal_details.address}</h2>
-    <p style="text-align: center">{personal_details.phone} | {personal_details.secondary_phone or ''} | {personal_details.email}</p>
-    <p style="text-align: center">Fax: {personal_details.fax}</p>
-    """
+import time
+from classes import log_debug_info
 
-def format_educational_details_into_html(education_list):
+def format_personal_details_into_html(personal_details, filename):
+    log_debug_info(f"[S] Formatting personal details {filename}...")
+    start_time = time.time()
+    res = f"""
+    <!-- Name and Contact Information -->
+    <h1 style="text-align: center; font-size: 40px; margin-bottom: 5px;">{personal_details.name}</h1>
+    <h2 style="text-align: center; font-size: 16px; color: #555;">{personal_details.address}</h2>
+    <p style="text-align: center;">{personal_details.phone} | {personal_details.secondary_phone or ''} | {personal_details.email}</p>
+    <p style="text-align: center;">Fax: {personal_details.fax}</p>
+    """
+    elapsed_time = time.time() - start_time
+    log_debug_info(f"[D] Formating personal details took {elapsed_time} seconds for {filename} | start_time:{start_time}")
+    return res
+
+def format_educational_details_into_html(education_list, filename):
+    log_debug_info(f"[S] Formatting educational details {filename}...")
+    start_time = time.time()
     education_entries_html = "".join([
         f"""<tr>
-                <td class="table-cell date-column">{ed.graduation_year}</td>
-                <td class="table-cell">
-                    <h4 class="text-lg">{ed.degree} in {ed.major}</h4>
+                <td style="width: 20%; text-align: left;">{ed.graduation_year}</td>
+                <td>
+                    <h4 style="font-size: 18px; color: #333; text-align: left;">{ed.degree} in {ed.major}</h4>
                     <p>{ed.institution}, {ed.location}</p>
                     <p>Contact: {ed.contact}</p>
                 </td>
             </tr>"""
         for ed in education_list.educations
     ])
-    return f"""
+    res = f"""
     <!-- Education Section -->
-    <h3 class="text-xl mt-8 mb-4">Education</h3>
+    <h3 style="font-size: 26px; margin-top: 30px; text-align: left;">Education</h3>
     <table style="border: 0px;">
         {education_entries_html}
     </table>
     """
+    elapsed_time = time.time() - start_time
+    log_debug_info(f"[D] Formating educational details took {elapsed_time} seconds for {filename} | start_time:{start_time}")
+    return res
 
-def format_work_experience_details_into_html(work_experiences, T):
+def format_work_experience_details_into_html(work_experiences, T, filename):
+    log_debug_info(f"[S] Formatting work experience {filename}...")
+    start_time = time.time()
     work_info_html = """
     <!-- Work Experience -->
-    <h3 class="text-xl mt-8 mb-4">Work Experience</h3>
+    <h3 style="font-size: 26px; margin-top: 30px; text-align: left;">Work Experience</h3>
     <table style="border: 0px;">
     """
     for work_experience_list in work_experiences:
         for work_experience in work_experience_list.experiences:
             work_info_html += f"""
             <tr>
-                <td class="table-cell date-column">{work_experience.start_date} - {work_experience.end_date}</td>
-                <td class="table-cell">
-                    <h4 class="text-lg">{work_experience.position} at {work_experience.company}, {work_experience.department or ''}</h4>
+                <td style="width: 20%; text-align: left;">{work_experience.start_date} - {work_experience.end_date}</td>
+                <td>
+                    <h4 style="font-size: 18px; color: #333; text-align: left;">{work_experience.position} at {work_experience.company}, {work_experience.department or ''}</h4>
                     <p>Location: {work_experience.location}</p>
                     <p>Description: {work_experience.description}</p>
                 </td>
             </tr>
             """
-
     if T:
         work_info_html += """
         <tr>
-            <td class="table-cell date-column">Affiliations:</td>
-            <td class="table-cell"><p>"Placeholder"</p></td>
+            <td> </td>
+            <td><p>"Placeholder"</p></td>
         </tr>
         """
-    
     work_info_html += "</table>"
+    elapsed_time = time.time() - start_time
+    log_debug_info(f"[D] Formating work experience took {elapsed_time} seconds for {filename} | start_time:{start_time}")
     return work_info_html
 
-def format_other_details_into_html(license_list, certification_list):
-    licenses_html = "<ul>" + "".join([f"<li>{lic.license_name} (Exp: {lic.expiration})</li>" for lic in license_list.licenses]) + "</ul>"
-    certifications_html = "<ul>" + "".join([f"<li>{cert.certification_name} (Exp: {cert.expiration})</li>" if cert.expiration else f"<li>{cert.certification_name}</li>" for cert in certification_list.certifications]) + "</ul>"
+
+def format_other_details_into_html(license_list, certification_list, filename):
+    log_debug_info(f"[S] Formatting licenses and certifications {filename}...")
+
+    start_time = time.time()
+
+    licenses_html = "<ul>" + "".join([f'<li style="font-size: 14px; text-align: left;">{lic.license_name} (Exp: {lic.expiration})</li>' for lic in license_list.licenses]) + "</ul>"
+    certifications_html = "<ul>" + "".join([f'<li style="font-size: 14px; text-align: left;">{cert.certification_name} (Exp: {cert.expiration})</li>' if cert.expiration else f'<li style="font-size: 14px; text-align: left;">{cert.certification_name}</li>' for cert in certification_list.certifications]) + "</ul>"
     
-    return f"""
+    res = f"""
     <!-- Licensure -->
     <div>
-        <h3 class="text-xl mt-8 mb-4">Licensure</h3>
+        <h3 style="font-size: 26px; margin-top: 30px; text-align: left;">Licensure</h3>
         {licenses_html}
     </div>
 
     <!-- Certifications -->
     <div>
-        <h3 class="text-xl mt-8 mb-4">Certifications</h3>
+        <h3 style="font-size: 26px; margin-top: 30px; text-align: left;">Certifications</h3>
         {certifications_html}
     </div>
     """
+    elapsed_time = time.time() - start_time
 
+    log_debug_info(f"[D] Formating licenses and certifications took {elapsed_time} seconds for {filename} | start_time:{start_time}")
 
-def format_final_template(personal, educational, work_experience, other):
-    return f"""
-    <section class="text-center w-1/3">
+    return res
+
+def format_final_template(personal, educational, work_experience, other, filename):
+    log_debug_info(f"[S] Formatting final template {filename}...")
+
+    start_time = time.time()
+
+    res = f"""
+    <section style="text-align: center; width: 33.33%; margin: 0 auto; padding: 20px; max-width: 800px; font-family: 'Arial', sans-serif;">
         {personal}
         <hr />
         {educational}
@@ -89,6 +117,11 @@ def format_final_template(personal, educational, work_experience, other):
         <br/>
     </section>
     """
+    elapsed_time = time.time() - start_time
+
+    log_debug_info(f"[D] Formating final template took {elapsed_time} seconds for {filename} | start_time:{start_time}")
+
+    return res
 
 def get_final_html(final_response):
     return f"""
