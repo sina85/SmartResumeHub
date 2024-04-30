@@ -6,7 +6,7 @@ import json
 
 def main():
     
-    log_debug_info('Starting Application...')
+    log_debug_info('[I] Starting Application...')
     st.title("Tribal Resume Converter")
 
     api_key = ''
@@ -19,29 +19,29 @@ def main():
 
         if not api_key:
             error_message = 'API key not found in the configuration file.'
-            log_debug_info(error_message)
+            log_debug_info(f'[E] {error_message}')
             st.error(error_message)
             st.stop()
 
         client = OpenAI(api_key=api_key)
         client = instructor.from_openai(client)
-        log_debug_info('API key loaded successfully.')
+        log_debug_info('[I] API key loaded successfully.')
 
     except FileNotFoundError:
         error_message = 'Configuration file not found.'
-        log_debug_info(error_message)
+        log_debug_info(f'[E] {error_message}')
         st.error(error_message)
         st.stop()
 
     except json.JSONDecodeError:
         error_message = 'Invalid JSON format in the configuration file.'
-        log_debug_info(error_message)
+        log_debug_info(f'[E] {error_message}')
         st.error(error_message)
         st.stop()
 
     except Exception as e:
         error_message = f'An error occurred while loading the API key: {str(e)}'
-        log_debug_info(error_message)
+        log_debug_info(f'[E] {error_message}')
         st.error(error_message)
         st.stop()
     

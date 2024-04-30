@@ -11,3 +11,4 @@ spire.doc
 instructor
 pytesseract
 pdf2image
+htmldocx

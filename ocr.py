@@ -1,5 +1,4 @@
 import pytesseract
-from PIL import Image
 from pdf2image import convert_from_bytes
 
 def extract_text_from_image(pdf_content):

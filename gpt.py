@@ -2,7 +2,7 @@ from classes import *
 import time
 
 def extract_personal_and_educational_details(client, context, filename, meta_data):
-    log_debug_info(f"Extracting personal and educational details {filename}...")
+    log_debug_info(f"[S] Extracting personal and educational details {filename}...")
 
     prompt = f"""Extract personal and educational details from the following resume,
     Use this information to your advantage for more accurate processing:\n{meta_data.additional_comments}\n
@@ -19,7 +19,7 @@ def extract_personal_and_educational_details(client, context, filename, meta_dat
     )
     
     elapsed_time = time.time() - start_time
-    log_debug_info(f"Extracting personal and educational details took {elapsed_time} seconds for {filename} | start_time:{start_time}")
+    log_debug_info(f"[D] Extracting personal and educational details took {elapsed_time} seconds for {filename} | start_time:{start_time}")
 
     return res
 
@@ -30,7 +30,7 @@ def extract_work_experience(client, context, filename, meta_data):
     Use this information to your advantage for more accurate processing:\n{meta_data.additional_comments}\n
     The field work experience contain {meta_data.work_experience.number_of_items} items and the field is structured in the following way:{meta_data.work_experience.format}.\n{context}
     """
-    log_debug_info(f"Extracting work experience {filename}...")
+    log_debug_info(f"[S] Extracting work experience {filename}...")
 
     start_time = time.time()
 
@@ -41,14 +41,14 @@ def extract_work_experience(client, context, filename, meta_data):
     )
 
     elapsed_time = time.time() - start_time
-    log_debug_info(f"Extracting work experience took {elapsed_time} seconds for {filename} | start_time:{start_time}")
+    log_debug_info(f"[D] Extracting work experience took {elapsed_time} seconds for {filename} | start_time:{start_time}")
 
     return res
 
 
 def extract_licenses_and_certifications(client, context, filename, meta_data):
 
-    log_debug_info(f"Extracting licenses and certifications {filename}...")
+    log_debug_info(f"[S] Extracting licenses and certifications {filename}...")
 
     prompt = f"""Extract licences and certifications from the following resume,
     Use this information to your advantage for more accurate processing:\n{meta_data.additional_comments}\n
@@ -66,7 +66,7 @@ def extract_licenses_and_certifications(client, context, filename, meta_data):
     )
 
     elapsed_time = time.time() - start_time
-    log_debug_info(f"Extracting licenses and certifications took {elapsed_time} seconds for {filename} | start_time:{start_time}")
+    log_debug_info(f"[D] Extracting licenses and certifications took {elapsed_time} seconds for {filename} | start_time:{start_time}")
 
     return res
 
@@ -85,7 +85,7 @@ def extract_metadata(client, context, filename):
     5. Licenses Section
     Resume:\n{context}"""
  
-    log_debug_info(f"pre-processing {filename}...")
+    log_debug_info(f"[S] Pre-processing {filename}...")
 
     start_time = time.time()
 
@@ -96,7 +96,7 @@ def extract_metadata(client, context, filename):
         response_model=ResumeMetadata,
     )
     elapsed_time = time.time() - start_time
-    log_debug_info(f"Extracting ResumeMetadata took {elapsed_time} seconds for {filename} | start_time:{start_time}")
+    log_debug_info(f"[D] Extracting ResumeMetadata took {elapsed_time} seconds for {filename} | start_time:{start_time}")
 
     return res
 
