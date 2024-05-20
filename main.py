@@ -65,16 +65,23 @@ def main():
         # Clear previous session data
         st.session_state.processed_files_doctors = []
         st.session_state.processed_files_nurses = []
+        st.session_state.total_cost = 0.0
 
-        file_doctors, file_nurses = process_files(client, uploaded_files_doctors, uploaded_files_nurses)
+
+        file_doctors, file_nurses, total_cost = process_files(client, uploaded_files_doctors, uploaded_files_nurses)
         
         if file_doctors:
             st.session_state.processed_files_doctors = file_doctors
         if file_nurses:
             st.session_state.processed_files_nurses = file_nurses
     
+        st.session_state.total_cost = total_cost
+
+        st.write(f"Total Cost for Processing: ${total_cost:.6f}")
+    
     if st.button("Process Many to One"):
         st.session_state.processed_file_many_to_one = []
+
         if uploaded_files_many_to_one:
             processed_file_many_to_one = process_many_to_one(client, uploaded_files_many_to_one)
             if processed_file_many_to_one:

@@ -8,6 +8,7 @@ import streamlit as st
 from PIL import Image
 import fitz  # PyMuPDF
 import base64
+import tiktoken
 import subprocess
 
 Image.MAX_IMAGE_PIXELS = None
@@ -128,3 +129,13 @@ def compress_pdf_mupdf(input_path, output_path, quality=50):
 
 # Example usage:
 # compress_pdf_mupdf('path/to/original.pdf', 'path/to/compressed.pdf', quality=40)
+
+def count_tokens(input_string: str) -> int:
+    tokenizer = tiktoken.get_encoding("cl100k_base")
+    tokens = tokenizer.encode(input_string)
+    return len(tokens)
+
+def calculate_cost(input_string: str, cost_per_million_tokens: float = 5) -> float:
+    num_tokens = count_tokens(input_string)
+    total_cost = (num_tokens / 1_000_000) * cost_per_million_tokens
+    return total_cost

@@ -212,7 +212,7 @@ def extract_vaccination_info(client, image_path, filename):
     This is a scanned image and might contain handwritten annotations.
     If there is missing infomration please respond with Not Specified."""
     
-    images_content = [{"type": "image_url","image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}}]
+    images_content = [{"type": "image_url","image_url": {"url": f"data:image/jpeg;base64,{base64_image}", "detail": "low"}}]
 
     messages_list = [{
         "role": "user",

@@ -6,6 +6,7 @@ from htmldocx import HtmlToDocx
 from gpt import *
 from utils import *
 from ocr import *
+from inline import calculate_cost
 
 def process_resume(client, text, filename, flag):
 
@@ -88,7 +89,9 @@ def process_each_file(client, all_files):
 
     log_debug_info(f"[F] Processing file {filename} took {elapsed_time} seconds")
 
-    return type, f"Processed file: {filename}", (f"{filename.split('.pdf')[0]}-done.docx", doc_bytes)
+    cost = calculate_cost(text)
+
+    return type, f"Processed file: {filename}", (f"{filename.split('.pdf')[0]}-done.docx", doc_bytes), cost
 
 def process_files(client, uploaded_files_doctors, uploaded_files_nurses):
 
@@ -103,7 +106,8 @@ def process_files(client, uploaded_files_doctors, uploaded_files_nurses):
         max_processes = 3
         with concurrent.futures.ThreadPoolExecutor(max_processes) as executor:
             results = executor.map(lambda file_info: process_each_file(client, file_info), all_files)
-        for type, message, processed_file in results:
+        for type, message, processed_file, cost in results:
+            total_cost += cost
             if type == 'doctors' and processed_file:
                 processed_files_dr.append(processed_file)
                 st.success(message)
@@ -115,4 +119,4 @@ def process_files(client, uploaded_files_doctors, uploaded_files_nurses):
             elif type == 'nurses':
                 st.error(message)
 
-    return processed_files_dr, processed_files_nr
+    return processed_files_dr, processed_files_nr, total_cost
