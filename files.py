@@ -1,31 +1,11 @@
 import time
-import docx2txt
-import zipfile
-import tempfile
 import concurrent.futures
-from pdfminer.high_level import extract_text
 from io import BytesIO
+import streamlit as st
+from htmldocx import HtmlToDocx
 from gpt import *
 from utils import *
-import streamlit as st
 from ocr import *
-from htmldocx import HtmlToDocx
-
-def extract_text_from_pdf(pdf_file):
-    return extract_text(pdf_file)
-
-def extract_text_from_docx(docx_file):
-    return docx2txt.process(docx_file)
-
-def extract_text_from_file(filename, file_content):
-    if filename.lower().endswith('.pdf'):
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
-            tmp_file.write(file_content)
-            return extract_text_from_pdf(tmp_file.name)
-    elif filename.lower().endswith('.docx'):
-        return extract_text_from_docx(BytesIO(file_content))
-    else:
-        raise ValueError("Unsupported file format")
 
 def process_resume(client, text, filename, flag):
 
@@ -136,17 +116,3 @@ def process_files(client, uploaded_files_doctors, uploaded_files_nurses):
                 st.error(message)
 
     return processed_files_dr, processed_files_nr
-
-def download_processed_files(processed_files, type):
-    zip_buffer = BytesIO()
-    with zipfile.ZipFile(zip_buffer, 'a', zipfile.ZIP_DEFLATED, False) as zip_file:
-        for file_name, file_data in processed_files:
-            zip_file.writestr(file_name, file_data)
-    zip_buffer.seek(0)
-    st.download_button(
-        label=f"Download Processed {type.capitalize()} Files as ZIP",
-        data=zip_buffer,
-        file_name=f"processed_{type}_resumes.zip",
-        mime="application/zip",
-        key=f"download_{type}"
-    )

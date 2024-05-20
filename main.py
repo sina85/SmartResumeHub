@@ -2,7 +2,9 @@ from openai import OpenAI
 import streamlit as st
 import instructor
 from files import *
+from many_to_one import *
 import json
+from inline import download_processed_files
 
 def main():
     
@@ -50,10 +52,13 @@ def main():
         st.session_state.processed_files_doctors = []
     if 'processed_files_nurses' not in st.session_state:
         st.session_state.processed_files_nurses = []
-
+    if 'processed_file_many_to_one' not in st.session_state:
+        st.session_state.processed_file_many_to_one = []
+    
     # File uploaders
     uploaded_files_doctors = st.file_uploader("Upload doctors' resumes", accept_multiple_files=True, type=['pdf', 'docx'], key="doctors")
     uploaded_files_nurses = st.file_uploader("Upload nurses' resumes", accept_multiple_files=True, type=['pdf', 'docx'], key="nurses")
+    uploaded_files_many_to_one = st.file_uploader("Upload Many to One", accept_multiple_files=True, type=['pdf', 'docx', 'png', 'jpg'], key="many_to_one")
     
     # Process files button
     if st.button("Process Files"):
@@ -67,12 +72,23 @@ def main():
             st.session_state.processed_files_doctors = file_doctors
         if file_nurses:
             st.session_state.processed_files_nurses = file_nurses
+    
+    if st.button("Process Many to One"):
+        st.session_state.processed_file_many_to_one = []
+        if uploaded_files_many_to_one:
+            processed_file_many_to_one = process_many_to_one(client, uploaded_files_many_to_one)
+            if processed_file_many_to_one:
+                st.session_state.processed_file_many_to_one = processed_file_many_to_one
+        else:
+            st.error("Please upload at least one file.")
 
     # Display download buttons if there are processed files
     if st.session_state.processed_files_doctors:
         download_processed_files(st.session_state.processed_files_doctors, 'doctors')
     if st.session_state.processed_files_nurses:
         download_processed_files(st.session_state.processed_files_nurses, 'nurses')
+    if st.session_state.processed_file_many_to_one:
+        download_processed_files(st.session_state.processed_file_many_to_one, 'many_to_one')
 
 if __name__ == "__main__":
     main()

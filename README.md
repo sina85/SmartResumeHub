@@ -55,9 +55,9 @@ SmartResumeHub is an intelligent resume processing application that extracts key
 
 5. Once the processing is complete, you can download the processed resumes as ZIP files for doctors and nurses separately.
 
-## Contributing
+## Improvements
 
-Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+1. Improve speed by writing a function to find the sweat spot for the amount of task and number of threads to call in parallel.
 
 ## License
 

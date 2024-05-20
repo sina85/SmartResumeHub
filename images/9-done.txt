@@ -1,0 +1,1 @@
+{'name': 'Davis Referente Enriquez', 'religious_exemption': 'Not Specified', 'immunizations': [ImmunizationRecord_Many_to_One(type='Rubella IgG', date='29/10/2020'), ImmunizationRecord_Many_to_One(type='Varicella-Zoster IgG', date='29/10/2020')]}

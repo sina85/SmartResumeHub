@@ -3,6 +3,7 @@ from spire.doc.common import *
 from pydantic import BaseModel, field_validator
 import datetime
 import os
+import pdb
 
 class License(BaseModel):
     license_name: str
@@ -125,6 +126,59 @@ class ResumeMetadata(BaseModel):
     certifications: SectionInfo
     licenses: SectionInfo
     additional_comments: str
+
+class ImmunizationRecord_Many_to_One(BaseModel):
+    type: str
+    date: str
+
+    @field_validator('type', 'date')
+    def ensure_string(cls, v):
+        if v is not None:
+            return str(v)
+        return 'Not Specified'
+
+class ImmunizationRecord_Many_to_One_List(BaseModel):
+    name: str
+    religious_exemption: str
+    immunizations: List[ImmunizationRecord_Many_to_One]
+
+    @field_validator('name', 'religious_exemption')
+    def ensure_string(cls, v):
+        if v is not None:
+            return str(v)
+        return 'Not Specified'
+
+
+class Certification_Many_to_One(BaseModel):
+    type: str
+    issue_date: str
+    expiration_date: str
+
+    @field_validator('type', 'issue_date', 'expiration_date')
+    def ensure_string(cls, v):
+        if v is not None:
+            return str(v)
+        return 'Not Specified'
+
+
+class Certification_Many_to_One_List(BaseModel):
+    name: str
+    certifications: List[Certification_Many_to_One]
+    @field_validator('name')
+    def ensure_string(cls, v):
+        if v is not None:
+            return str(v)
+        return 'Not Specified'
+
+class Classify_many_to_one(BaseModel):
+    class_type: str
+    @field_validator('class_type')
+    def ensure_string(cls, v):
+        if v is not None:
+            return str(v)
+        return 'Not Specified'
+
+
 
 def log_debug_info(message):
     # Get the current timestamp

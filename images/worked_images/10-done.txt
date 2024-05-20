@@ -1,0 +1,1 @@
+{'name': 'Jessica Purcell', 'religious_exemption': 'Yes', 'immunizations': [ImmunizationRecord_Many_to_One(type='Seasonal Influenza', date='04/24/2024'), ImmunizationRecord_Many_to_One(type='Influenza', date='Not Specified')]}

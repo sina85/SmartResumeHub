@@ -1,0 +1,1 @@
+{'name': 'Huian Pirek', 'religious_exemption': 'Not Specified', 'immunizations': [ImmunizationRecord_Many_to_One(type='FLUARIX 5+ 0.5 ml PFS 23-24', date='10/3/23'), ImmunizationRecord_Many_to_One(type='FLUARIX 5+ 0.5 ml PFS 23-24', date='10/3/23'), ImmunizationRecord_Many_to_One(type='SHINGRIX', date='10/3/23')]}

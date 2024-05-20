@@ -1,0 +1,1 @@
+{'name': 'Enriquez Davis', 'religious_exemption': 'Not Specified', 'immunizations': [ImmunizationRecord_Many_to_One(type='1st Dose COVID-19', date='12/06/21'), ImmunizationRecord_Many_to_One(type='2nd Dose COVID-19', date='12/27/21')]}
