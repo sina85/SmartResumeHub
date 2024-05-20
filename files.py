@@ -98,6 +98,7 @@ def process_files(client, uploaded_files_doctors, uploaded_files_nurses):
     doctor_files = [(file, 'doctors') for file in uploaded_files_doctors]
     nurse_files = [(file, 'nurses') for file in uploaded_files_nurses]
     all_files = doctor_files + nurse_files
+    total_cost = 0
 
     processed_files_dr = []
     processed_files_nr = []
