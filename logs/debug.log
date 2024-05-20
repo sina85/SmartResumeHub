@@ -1,97 +1,520 @@
-2024-04-29 17:08:59 - [D] Extracting ResumeMetadata took 26.763325214385986 seconds for Jamaldeen, Mohamed MD - CV 2023-08.pdf | start_time:1714435712.8914857
-2024-04-29 17:09:07 - [I] Starting Application...
-2024-04-29 17:09:08 - [I] API key loaded successfully.
-2024-04-29 17:09:10 - [I] Starting Application...
-2024-04-29 17:09:10 - [I] API key loaded successfully.
-2024-04-29 17:09:11 - [I] Starting Application...
-2024-04-29 17:09:11 - [I] API key loaded successfully.
-2024-04-29 17:09:17 - [I] Starting Application...
-2024-04-29 17:09:17 - [I] API key loaded successfully.
-2024-04-29 17:09:17 - [S] Pre-processing Paz, Juan MD - CV.pdf...
-2024-04-29 17:09:45 - [D] Extracting ResumeMetadata took 28.20088481903076 seconds for Paz, Juan MD - CV.pdf | start_time:1714435757.230063
-2024-04-29 17:09:45 - [S] Extracting personal and educational details Paz, Juan MD - CV.pdf...
-2024-04-29 17:09:45 - [S] Extracting work experience Paz, Juan MD - CV.pdf...
-2024-04-29 17:09:45 - [S] Extracting licenses and certifications Paz, Juan MD - CV.pdf...
-2024-04-29 17:09:47 - [D] Extracting work experience took 1.6286046504974365 seconds for Paz, Juan MD - CV.pdf | start_time:1714435785.4442704
-2024-04-29 17:09:49 - [D] Extracting licenses and certifications took 3.784482479095459 seconds for Paz, Juan MD - CV.pdf | start_time:1714435785.450177
-2024-04-29 17:09:54 - [D] Extracting personal and educational details took 9.337150812149048 seconds for Paz, Juan MD - CV.pdf | start_time:1714435785.4338636
-2024-04-29 17:09:54 - [F] Detail Extraction took 9.341186046600342 for Paz, Juan MD - CV.pdf.
-2024-04-29 17:09:54 - [S] Formatting the data!
-2024-04-29 17:09:54 - [S] Formatting educational details Paz, Juan MD - CV.pdf...
-2024-04-29 17:09:54 - [S] Formatting personal details Paz, Juan MD - CV.pdf...
-2024-04-29 17:09:54 - [D] Formating educational details took 2.384185791015625e-05 seconds for Paz, Juan MD - CV.pdf | start_time:1714435794.7747543
-2024-04-29 17:09:54 - [D] Formating personal details took 1.1205673217773438e-05 seconds for Paz, Juan MD - CV.pdf | start_time:1714435794.7756178
-2024-04-29 17:09:54 - [S] Formatting licenses and certifications Paz, Juan MD - CV.pdf...
-2024-04-29 17:09:54 - [D] Formating licenses and certifications took 2.3126602172851562e-05 seconds for Paz, Juan MD - CV.pdf | start_time:1714435794.7782974
-2024-04-29 17:09:54 - [S] Formatting work experience Paz, Juan MD - CV.pdf...
-2024-04-29 17:10:06 - [D] Formating work experience took 11.549872159957886 seconds for Paz, Juan MD - CV.pdf | start_time:1714435794.7796123
-2024-04-29 17:10:06 - [S] Formatting final template Paz, Juan MD - CV.pdf...
-2024-04-29 17:10:06 - [D] Formating final template took 6.67572021484375e-06 seconds for Paz, Juan MD - CV.pdf | start_time:1714435806.3317688
-2024-04-29 17:10:06 - [F] Formating file Paz, Juan MD - CV.pdf took 11.559925079345703 seconds!
-2024-04-29 17:10:06 - [F] Processing file Paz, Juan MD - CV.pdf took 49.18068885803223 seconds
-2024-04-29 17:11:08 - [I] Starting Application...
-2024-04-29 17:11:08 - [I] API key loaded successfully.
-2024-04-29 17:11:52 - [I] Starting Application...
-2024-04-29 17:11:52 - [I] API key loaded successfully.
-2024-04-29 17:11:54 - [I] Starting Application...
-2024-04-29 17:11:54 - [I] API key loaded successfully.
-2024-04-29 17:11:56 - [I] Starting Application...
-2024-04-29 17:11:56 - [I] API key loaded successfully.
-2024-04-29 17:11:56 - [S] Pre-processing Al Musawi, Samara MD - CV.pdf...
-2024-04-29 17:12:22 - [D] Extracting ResumeMetadata took 26.4336359500885 seconds for Al Musawi, Samara MD - CV.pdf | start_time:1714435916.252337
-2024-04-29 17:12:22 - [S] Extracting personal and educational details Al Musawi, Samara MD - CV.pdf...
-2024-04-29 17:12:22 - [S] Extracting work experience Al Musawi, Samara MD - CV.pdf...
-2024-04-29 17:12:22 - [S] Extracting licenses and certifications Al Musawi, Samara MD - CV.pdf...
-2024-04-29 17:12:23 - [D] Extracting work experience took 1.1470723152160645 seconds for Al Musawi, Samara MD - CV.pdf | start_time:1714435942.6993322
-2024-04-29 17:12:29 - [D] Extracting licenses and certifications took 6.579401731491089 seconds for Al Musawi, Samara MD - CV.pdf | start_time:1714435942.6943295
-2024-04-29 17:12:35 - [D] Extracting personal and educational details took 12.832818269729614 seconds for Al Musawi, Samara MD - CV.pdf | start_time:1714435942.688788
-2024-04-29 17:12:35 - [F] Detail Extraction took 12.836522579193115 for Al Musawi, Samara MD - CV.pdf.
-2024-04-29 17:12:35 - [S] Formatting the data!
-2024-04-29 17:12:35 - [S] Formatting personal details Al Musawi, Samara MD - CV.pdf...
-2024-04-29 17:12:35 - [D] Formating personal details took 8.344650268554688e-06 seconds for Al Musawi, Samara MD - CV.pdf | start_time:1714435955.5245662
-2024-04-29 17:12:35 - [S] Formatting work experience Al Musawi, Samara MD - CV.pdf...
-2024-04-29 17:12:35 - [S] Formatting educational details Al Musawi, Samara MD - CV.pdf...
-2024-04-29 17:12:35 - [D] Formating educational details took 1.811981201171875e-05 seconds for Al Musawi, Samara MD - CV.pdf | start_time:1714435955.5260556
-2024-04-29 17:12:35 - [S] Formatting licenses and certifications Al Musawi, Samara MD - CV.pdf...
-2024-04-29 17:12:35 - [D] Formating licenses and certifications took 2.0503997802734375e-05 seconds for Al Musawi, Samara MD - CV.pdf | start_time:1714435955.5325208
-2024-04-29 17:12:37 - [D] Formating work experience took 2.1356613636016846 seconds for Al Musawi, Samara MD - CV.pdf | start_time:1714435955.52697
-2024-04-29 17:12:37 - [S] Formatting final template Al Musawi, Samara MD - CV.pdf...
-2024-04-29 17:12:37 - [D] Formating final template took 5.9604644775390625e-06 seconds for Al Musawi, Samara MD - CV.pdf | start_time:1714435957.664869
-2024-04-29 17:12:37 - [F] Formating file Al Musawi, Samara MD - CV.pdf took 2.1425628662109375 seconds!
-2024-04-29 17:12:37 - [F] Processing file Al Musawi, Samara MD - CV.pdf took 41.50022339820862 seconds
-2024-04-29 17:12:44 - [I] Starting Application...
-2024-04-29 17:12:44 - [I] API key loaded successfully.
-2024-04-29 18:02:34 - [I] Starting Application...
-2024-04-29 18:02:34 - [I] API key loaded successfully.
-2024-04-29 18:02:43 - [I] Starting Application...
-2024-04-29 18:02:43 - [I] API key loaded successfully.
-2024-04-29 18:02:44 - [I] Starting Application...
-2024-04-29 18:02:44 - [I] API key loaded successfully.
-2024-04-29 18:02:44 - [S] Pre-processing Hossain, Muhaiminu DPM - CV.pdf...
-2024-04-29 18:02:56 - [I] Starting Application...
-2024-04-29 18:02:56 - [I] API key loaded successfully.
-2024-04-29 18:03:04 - [I] Starting Application...
-2024-04-29 18:03:04 - [I] API key loaded successfully.
-2024-04-29 18:03:12 - [D] Extracting ResumeMetadata took 27.891032218933105 seconds for Hossain, Muhaiminu DPM - CV.pdf | start_time:1714438964.4016073
-2024-04-29 18:03:12 - [S] Extracting personal and educational details Hossain, Muhaiminu DPM - CV.pdf...
-2024-04-29 18:03:12 - [S] Extracting work experience Hossain, Muhaiminu DPM - CV.pdf...
-2024-04-29 18:03:12 - [S] Extracting licenses and certifications Hossain, Muhaiminu DPM - CV.pdf...
-2024-04-29 18:03:14 - [D] Extracting work experience took 2.0823895931243896 seconds for Hossain, Muhaiminu DPM - CV.pdf | start_time:1714438992.3058405
-2024-04-29 18:03:24 - [D] Extracting personal and educational details took 12.645357608795166 seconds for Hossain, Muhaiminu DPM - CV.pdf | start_time:1714438992.2942865
-2024-04-29 18:03:25 - [D] Extracting licenses and certifications took 13.551097631454468 seconds for Hossain, Muhaiminu DPM - CV.pdf | start_time:1714438992.3139968
-2024-04-29 18:03:25 - [F] Detail Extraction took 13.573507070541382 for Hossain, Muhaiminu DPM - CV.pdf.
-2024-04-29 18:03:25 - [S] Formatting the data!
-2024-04-29 18:03:25 - [S] Formatting personal details Hossain, Muhaiminu DPM - CV.pdf...
-2024-04-29 18:03:25 - [S] Formatting educational details Hossain, Muhaiminu DPM - CV.pdf...
-2024-04-29 18:03:25 - [S] Formatting work experience Hossain, Muhaiminu DPM - CV.pdf...
-2024-04-29 18:03:25 - [D] Formating personal details took 1.0967254638671875e-05 seconds for Hossain, Muhaiminu DPM - CV.pdf | start_time:1714439005.8704865
-2024-04-29 18:03:25 - [S] Formatting licenses and certifications Hossain, Muhaiminu DPM - CV.pdf...
-2024-04-29 18:03:25 - [D] Formating licenses and certifications took 2.2411346435546875e-05 seconds for Hossain, Muhaiminu DPM - CV.pdf | start_time:1714439005.8804073
-2024-04-29 18:03:25 - [D] Formating educational details took 2.0265579223632812e-05 seconds for Hossain, Muhaiminu DPM - CV.pdf | start_time:1714439005.8807313
-2024-04-29 18:03:43 - [D] Formating work experience took 18.123892784118652 seconds for Hossain, Muhaiminu DPM - CV.pdf | start_time:1714439005.8711417
-2024-04-29 18:03:43 - [S] Formatting final template Hossain, Muhaiminu DPM - CV.pdf...
-2024-04-29 18:03:43 - [D] Formating final template took 7.152557373046875e-06 seconds for Hossain, Muhaiminu DPM - CV.pdf | start_time:1714439023.9973557
-2024-04-29 18:03:43 - [F] Formating file Hossain, Muhaiminu DPM - CV.pdf took 18.130576133728027 seconds!
-2024-04-29 18:03:44 - [F] Processing file Hossain, Muhaiminu DPM - CV.pdf took 59.830724239349365 seconds
-2024-04-29 18:03:52 - [I] Starting Application...
-2024-04-29 18:03:52 - [I] API key loaded successfully.
+2024-05-19 19:43:25 - [I] Starting Application...
+2024-05-19 19:43:25 - [I] API key loaded successfully.
+2024-05-19 19:43:26 - [I] Starting Application...
+2024-05-19 19:43:26 - [I] API key loaded successfully.
+2024-05-19 19:43:33 - [I] Starting Application...
+2024-05-19 19:43:33 - [I] API key loaded successfully.
+2024-05-19 19:43:41 - [I] Starting Application...
+2024-05-19 19:43:41 - [I] API key loaded successfully.
+2024-05-19 19:43:42 - [I] Starting Application...
+2024-05-19 19:43:42 - [I] API key loaded successfully.
+2024-05-19 19:43:42 - [$] Processing many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 19:43:42 - [$] Processing many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 19:43:42 - [$] Processing many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 19:43:42 - [$] Processing many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 19:43:42 - [$] Processing many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 19:43:42 - [$] Processing many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 19:43:42 - [$] classifying many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 19:43:42 - [$] classifying many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 19:43:43 - [$] classifying many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 19:43:43 - [$] classifying many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 19:43:43 - [$] classifying many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 19:43:43 - [$] classifying many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 19:43:44 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 19:43:44 - [$] Processed image in memory for page 1!
+2024-05-19 19:43:44 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 19:43:44 - [$] Calling API to extract certification info for Blizzard, Rachel RN - BLS 04-31-2025.pdf...
+2024-05-19 19:43:44 - [$] Processed image in memory for page 1!
+2024-05-19 19:43:44 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 19:43:44 - [$] Processed image in memory for page 1!
+2024-05-19 19:43:45 - [$] Calling API to extract certification info for Blizzard, Rachel RN - PALS 04-31-2025.pdf...
+2024-05-19 19:43:45 - [$] Calling API to extract certification info for Blizzard, Rachel RN - ACLS 04-31-2025.pdf...
+2024-05-19 19:43:46 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 19:43:46 - [$] Processed image in memory for page 1!
+2024-05-19 19:43:46 - [$] Calling API to extract certification info for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf...
+2024-05-19 19:43:47 - [#] Certification Extraction complete for Blizzard, Rachel RN - BLS 04-31-2025.pdf | elapsed_time 2.9005563259124756
+2024-05-19 19:43:47 - [#] Certification Extraction complete for Blizzard, Rachel RN - ACLS 04-31-2025.pdf | elapsed_time 2.6272165775299072
+2024-05-19 19:43:47 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 19:43:47 - [$] Processed image in memory for page 1!
+2024-05-19 19:43:47 - [$] Extracting vaccination info from Blizzard, Rachel RN - 2023 COVID & FLU.pdf...
+2024-05-19 19:43:48 - [#] Certification Extraction complete for Blizzard, Rachel RN - PALS 04-31-2025.pdf | elapsed_time 3.076024055480957
+2024-05-19 19:43:48 - [#] Certification Extraction complete for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf | elapsed_time 2.1550025939941406
+2024-05-19 19:43:50 - [#] Extraction complete for Blizzard, Rachel RN - 2023 COVID & FLU.pdf | elapsed_time 2.7985453605651855
+2024-05-19 19:43:50 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 19:43:51 - [$] Processed image in memory for page 1!
+2024-05-19 19:43:51 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 19:43:54 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 2.923215866088867
+2024-05-19 19:43:54 - [$] Processed image in memory for page 2!
+2024-05-19 19:43:55 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 19:44:01 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 6.309854984283447
+2024-05-19 19:44:01 - [$] Processed image in memory for page 3!
+2024-05-19 19:44:02 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 19:44:06 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 4.156841039657593
+2024-05-19 19:44:06 - [$] Processed image in memory for page 4!
+2024-05-19 19:44:06 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 19:45:20 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 73.56940841674805
+2024-05-19 19:45:21 - [$] Processed image in memory for page 5!
+2024-05-19 19:45:21 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 19:45:24 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 2.9668195247650146
+2024-05-19 19:45:25 - [$] Processed image in memory for page 6!
+2024-05-19 19:45:26 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 19:45:29 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 3.5944137573242188
+2024-05-19 19:45:29 - [D] Processing many to one complete, creating final file
+2024-05-19 19:45:41 - [I] Starting Application...
+2024-05-19 19:45:41 - [I] API key loaded successfully.
+2024-05-19 19:48:50 - [I] Starting Application...
+2024-05-19 19:48:50 - [I] API key loaded successfully.
+2024-05-19 19:48:50 - [$] Processing many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 19:48:50 - [$] Processing many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 19:48:50 - [$] Processing many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 19:48:50 - [$] Processing many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 19:48:50 - [$] Processing many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 19:48:50 - [$] Processing many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 19:48:50 - [$] classifying many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 19:48:51 - [$] classifying many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 19:48:51 - [$] classifying many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 19:48:52 - [$] classifying many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 19:48:52 - [$] classifying many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 19:48:52 - [$] classifying many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 19:48:52 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 19:48:52 - [$] Processed image in memory for page 1!
+2024-05-19 19:48:52 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 19:48:53 - [$] Processed image in memory for page 1!
+2024-05-19 19:48:53 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 19:48:53 - [$] Processed image in memory for page 1!
+2024-05-19 19:48:53 - [$] Calling API to extract certification info for Blizzard, Rachel RN - ACLS 04-31-2025.pdf...
+2024-05-19 19:48:53 - [$] Calling API to extract certification info for Blizzard, Rachel RN - PALS 04-31-2025.pdf...
+2024-05-19 19:48:53 - [$] Calling API to extract certification info for Blizzard, Rachel RN - BLS 04-31-2025.pdf...
+2024-05-19 19:48:54 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 19:48:54 - [$] Processed image in memory for page 1!
+2024-05-19 19:48:54 - [$] Calling API to extract certification info for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf...
+2024-05-19 19:48:55 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 19:48:56 - [$] Processed image in memory for page 1!
+2024-05-19 19:48:56 - [$] Extracting vaccination info from Blizzard, Rachel RN - 2023 COVID & FLU.pdf...
+2024-05-19 19:48:57 - [#] Certification Extraction complete for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf | elapsed_time 2.8419687747955322
+2024-05-19 19:48:58 - [#] Certification Extraction complete for Blizzard, Rachel RN - ACLS 04-31-2025.pdf | elapsed_time 4.818134307861328
+2024-05-19 19:48:58 - [#] Certification Extraction complete for Blizzard, Rachel RN - BLS 04-31-2025.pdf | elapsed_time 4.955711841583252
+2024-05-19 19:48:59 - [#] Certification Extraction complete for Blizzard, Rachel RN - PALS 04-31-2025.pdf | elapsed_time 6.393087148666382
+2024-05-19 19:48:59 - [#] Extraction complete for Blizzard, Rachel RN - 2023 COVID & FLU.pdf | elapsed_time 3.729783773422241
+2024-05-19 19:49:03 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 19:49:03 - [$] Processed image in memory for page 1!
+2024-05-19 19:49:04 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 19:49:06 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 2.1435134410858154
+2024-05-19 19:49:06 - [$] Processed image in memory for page 2!
+2024-05-19 19:49:06 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 19:49:12 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 6.002855539321899
+2024-05-19 19:49:13 - [$] Processed image in memory for page 3!
+2024-05-19 19:49:13 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 19:49:17 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 3.7251312732696533
+2024-05-19 19:49:17 - [$] Processed image in memory for page 4!
+2024-05-19 19:49:17 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 19:49:21 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 3.9861934185028076
+2024-05-19 19:49:23 - [$] Processed image in memory for page 5!
+2024-05-19 19:49:23 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 19:49:26 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 2.8275792598724365
+2024-05-19 19:49:27 - [$] Processed image in memory for page 6!
+2024-05-19 19:49:27 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 19:49:30 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 3.4824299812316895
+2024-05-19 19:49:30 - [D] Processing many to one complete, creating final file
+2024-05-19 19:49:36 - [I] Starting Application...
+2024-05-19 19:49:36 - [I] API key loaded successfully.
+2024-05-19 20:05:36 - [I] Starting Application...
+2024-05-19 20:05:36 - [I] API key loaded successfully.
+2024-05-19 20:05:36 - [$] Processing many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 20:05:36 - [$] Processing many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 20:05:36 - [$] Processing many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 20:05:36 - [$] Processing many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 20:05:36 - [$] Processing many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 20:05:36 - [$] Processing many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 20:05:36 - [$] classifying many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 20:05:37 - [$] classifying many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 20:05:37 - [$] classifying many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 20:05:38 - [$] classifying many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 20:05:38 - [$] classifying many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 20:05:38 - [$] classifying many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 20:05:38 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 20:05:39 - [$] Processed image in memory for page 1!
+2024-05-19 20:05:39 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 20:05:39 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 20:05:39 - [$] Calling API to extract certification info for Blizzard, Rachel RN - PALS 04-31-2025.pdf...
+2024-05-19 20:05:39 - [$] Processed image in memory for page 1!
+2024-05-19 20:05:39 - [$] Processed image in memory for page 1!
+2024-05-19 20:05:39 - [$] Calling API to extract certification info for Blizzard, Rachel RN - ACLS 04-31-2025.pdf...
+2024-05-19 20:05:39 - [$] Calling API to extract certification info for Blizzard, Rachel RN - BLS 04-31-2025.pdf...
+2024-05-19 20:05:40 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 20:05:40 - [$] Processed image in memory for page 1!
+2024-05-19 20:05:40 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 20:05:41 - [$] Processed image in memory for page 1!
+2024-05-19 20:05:41 - [$] Calling API to extract certification info for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf...
+2024-05-19 20:05:41 - [$] Extracting vaccination info from Blizzard, Rachel RN - 2023 COVID & FLU.pdf...
+2024-05-19 20:05:43 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 20:05:44 - [$] Processed image in memory for page 1!
+2024-05-19 20:05:44 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 20:08:16 - [I] Starting Application...
+2024-05-19 20:08:16 - [I] API key loaded successfully.
+2024-05-19 20:08:16 - [$] Processing many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 20:08:16 - [$] Processing many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 20:08:16 - [$] Processing many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 20:08:16 - [$] Processing many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 20:08:16 - [$] Processing many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 20:08:16 - [$] Processing many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 20:08:16 - [$] classifying many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 20:08:17 - [$] classifying many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 20:08:17 - [$] classifying many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 20:08:18 - [$] classifying many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 20:08:18 - [$] classifying many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 20:08:18 - [$] classifying many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 20:08:19 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 20:08:19 - [$] Processed image in memory for page 1!
+2024-05-19 20:08:19 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 20:08:19 - [$] Processed image in memory for page 1!
+2024-05-19 20:08:19 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 20:08:19 - [$] Processed image in memory for page 1!
+2024-05-19 20:08:19 - [$] Calling API to extract certification info for Blizzard, Rachel RN - PALS 04-31-2025.pdf...
+2024-05-19 20:08:19 - [$] Calling API to extract certification info for Blizzard, Rachel RN - BLS 04-31-2025.pdf...
+2024-05-19 20:08:19 - [$] Calling API to extract certification info for Blizzard, Rachel RN - ACLS 04-31-2025.pdf...
+2024-05-19 20:08:20 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 20:08:20 - [$] Processed image in memory for page 1!
+2024-05-19 20:08:20 - [$] Extracting vaccination info from Blizzard, Rachel RN - 2023 COVID & FLU.pdf...
+2024-05-19 20:08:20 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 20:08:21 - [$] Processed image in memory for page 1!
+2024-05-19 20:08:21 - [$] Calling API to extract certification info for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf...
+2024-05-19 20:08:25 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 20:08:26 - [$] Processed image in memory for page 1!
+2024-05-19 20:08:26 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 20:13:46 - [I] Starting Application...
+2024-05-19 20:13:46 - [I] API key loaded successfully.
+2024-05-19 22:24:30 - [I] Starting Application...
+2024-05-19 22:24:30 - [I] API key loaded successfully.
+2024-05-19 22:24:34 - [I] Starting Application...
+2024-05-19 22:24:34 - [I] API key loaded successfully.
+2024-05-19 22:24:46 - [I] Starting Application...
+2024-05-19 22:24:46 - [I] API key loaded successfully.
+2024-05-19 22:24:56 - [I] Starting Application...
+2024-05-19 22:24:56 - [I] API key loaded successfully.
+2024-05-19 22:25:01 - [I] Starting Application...
+2024-05-19 22:25:01 - [I] API key loaded successfully.
+2024-05-19 22:25:01 - [$] Processing many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 22:25:01 - [$] Processing many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 22:25:01 - [$] Processing many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 22:25:01 - [$] Processing many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 22:25:01 - [$] Processing many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 22:25:01 - [$] Processing many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 22:25:01 - [$] classifying many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 22:25:01 - [$] classifying many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 22:25:02 - [$] classifying many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 22:25:02 - [$] classifying many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 22:25:02 - [$] classifying many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 22:25:03 - [$] classifying many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 22:25:03 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 22:25:03 - [$] Processed image in memory for page 1!
+2024-05-19 22:25:03 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 22:25:03 - [$] Calling API to extract certification info for Blizzard, Rachel RN - BLS 04-31-2025.pdf...
+2024-05-19 22:25:03 - [$] Processed image in memory for page 1!
+2024-05-19 22:25:03 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 22:25:04 - [$] Processed image in memory for page 1!
+2024-05-19 22:25:04 - [$] Calling API to extract certification info for Blizzard, Rachel RN - ACLS 04-31-2025.pdf...
+2024-05-19 22:25:04 - [$] Calling API to extract certification info for Blizzard, Rachel RN - PALS 04-31-2025.pdf...
+2024-05-19 22:25:05 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 22:25:05 - [$] Processed image in memory for page 1!
+2024-05-19 22:25:06 - [$] Extracting vaccination info from Blizzard, Rachel RN - 2023 COVID & FLU.pdf...
+2024-05-19 22:25:06 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 22:25:06 - [$] Processed image in memory for page 1!
+2024-05-19 22:25:06 - [$] Calling API to extract certification info for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf...
+2024-05-19 22:25:07 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 22:25:08 - [$] Processed image in memory for page 1!
+2024-05-19 22:25:08 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 22:32:29 - [I] Starting Application...
+2024-05-19 22:32:29 - [I] API key loaded successfully.
+2024-05-19 22:32:33 - [I] Starting Application...
+2024-05-19 22:32:33 - [I] API key loaded successfully.
+2024-05-19 22:32:40 - [I] Starting Application...
+2024-05-19 22:32:40 - [I] API key loaded successfully.
+2024-05-19 22:32:48 - [I] Starting Application...
+2024-05-19 22:32:48 - [I] API key loaded successfully.
+2024-05-19 22:32:49 - [I] Starting Application...
+2024-05-19 22:32:49 - [I] API key loaded successfully.
+2024-05-19 22:32:50 - [$] Processing many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 22:32:50 - [$] Processing many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 22:32:50 - [$] Processing many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 22:32:50 - [$] Processing many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 22:32:50 - [$] Processing many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 22:32:50 - [$] Processing many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 22:32:50 - [$] classifying many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 22:32:50 - [$] classifying many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 22:32:51 - [$] classifying many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 22:32:51 - [$] classifying many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 22:32:51 - [$] classifying many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 22:32:51 - [$] classifying many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 22:32:52 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 22:32:52 - [$] Processed image in memory for page 1!
+2024-05-19 22:32:52 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 22:32:52 - [$] Processed image in memory for page 1!
+2024-05-19 22:32:52 - [$] Calling API to extract certification info for Blizzard, Rachel RN - BLS 04-31-2025.pdf...
+2024-05-19 22:32:52 - [$] Calling API to extract certification info for Blizzard, Rachel RN - ACLS 04-31-2025.pdf...
+2024-05-19 22:32:53 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 22:32:53 - [$] Processed image in memory for page 1!
+2024-05-19 22:32:53 - [$] Calling API to extract certification info for Blizzard, Rachel RN - PALS 04-31-2025.pdf...
+2024-05-19 22:32:55 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 22:32:55 - [$] Processed image in memory for page 1!
+2024-05-19 22:32:55 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 22:32:55 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 22:32:55 - [$] Processed image in memory for page 1!
+2024-05-19 22:32:55 - [$] Processed image in memory for page 1!
+2024-05-19 22:32:55 - [$] Calling API to extract certification info for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf...
+2024-05-19 22:32:56 - [$] Extracting vaccination info from Blizzard, Rachel RN - 2023 COVID & FLU.pdf...
+2024-05-19 22:32:56 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 22:34:27 - [I] Starting Application...
+2024-05-19 22:34:27 - [I] API key loaded successfully.
+2024-05-19 22:34:28 - [I] Starting Application...
+2024-05-19 22:34:28 - [I] API key loaded successfully.
+2024-05-19 22:34:37 - [I] Starting Application...
+2024-05-19 22:34:38 - [I] API key loaded successfully.
+2024-05-19 22:34:45 - [I] Starting Application...
+2024-05-19 22:34:45 - [I] API key loaded successfully.
+2024-05-19 22:34:46 - [I] Starting Application...
+2024-05-19 22:34:46 - [I] API key loaded successfully.
+2024-05-19 22:34:46 - [$] Processing many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 22:34:46 - [$] Processing many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 22:34:46 - [$] Processing many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 22:34:46 - [$] Processing many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 22:34:46 - [$] Processing many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 22:34:46 - [$] Processing many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 22:34:46 - [$] classifying many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 22:34:46 - [$] classifying many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 22:34:47 - [$] classifying many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 22:34:47 - [$] classifying many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 22:34:47 - [$] classifying many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 22:34:47 - [$] classifying many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 22:34:48 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 22:34:48 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 22:34:48 - [$] Processed image in memory for page 1!
+2024-05-19 22:34:48 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 22:34:48 - [$] Processed image in memory for page 1!
+2024-05-19 22:34:48 - [$] Processed image in memory for page 1!
+2024-05-19 22:34:49 - [$] Calling API to extract certification info for Blizzard, Rachel RN - PALS 04-31-2025.pdf...
+2024-05-19 22:34:49 - [$] Calling API to extract certification info for Blizzard, Rachel RN - BLS 04-31-2025.pdf...
+2024-05-19 22:34:49 - [$] Calling API to extract certification info for Blizzard, Rachel RN - ACLS 04-31-2025.pdf...
+2024-05-19 22:34:49 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 22:34:49 - [$] Processed image in memory for page 1!
+2024-05-19 22:34:49 - [$] Calling API to extract certification info for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf...
+2024-05-19 22:34:51 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 22:34:51 - [$] Processed image in memory for page 1!
+2024-05-19 22:34:51 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 22:34:52 - [$] Processed image in memory for page 1!
+2024-05-19 22:34:52 - [$] Extracting vaccination info from Blizzard, Rachel RN - 2023 COVID & FLU.pdf...
+2024-05-19 22:34:52 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 22:39:58 - [I] Starting Application...
+2024-05-19 22:39:58 - [I] API key loaded successfully.
+2024-05-19 22:40:01 - [I] Starting Application...
+2024-05-19 22:40:01 - [I] API key loaded successfully.
+2024-05-19 22:40:08 - [I] Starting Application...
+2024-05-19 22:40:08 - [I] API key loaded successfully.
+2024-05-19 22:40:20 - [I] Starting Application...
+2024-05-19 22:40:20 - [I] API key loaded successfully.
+2024-05-19 22:40:21 - [I] Starting Application...
+2024-05-19 22:40:21 - [I] API key loaded successfully.
+2024-05-19 22:40:21 - [$] Processing many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 22:40:21 - [$] Processing many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 22:40:21 - [$] Processing many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 22:40:21 - [$] Processing many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 22:40:21 - [$] Processing many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 22:40:21 - [$] Processing many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 22:40:21 - [$] classifying many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 22:40:22 - [$] classifying many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 22:40:22 - [$] classifying many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 22:40:23 - [$] classifying many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 22:40:23 - [$] classifying many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 22:40:23 - [$] classifying many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 22:40:23 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-19 22:40:23 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-19 22:40:23 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-19 22:40:24 - [$] Processed image in memory for page 1!
+2024-05-19 22:40:24 - [$] Processed image in memory for page 1!
+2024-05-19 22:40:24 - [$] Processed image in memory for page 1!
+2024-05-19 22:40:24 - [$] Calling API to extract certification info for Blizzard, Rachel RN - BLS 04-31-2025.pdf...
+2024-05-19 22:40:24 - [$] Calling API to extract certification info for Blizzard, Rachel RN - ACLS 04-31-2025.pdf...
+2024-05-19 22:40:24 - [$] Calling API to extract certification info for Blizzard, Rachel RN - PALS 04-31-2025.pdf...
+2024-05-19 22:40:26 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-19 22:40:26 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-19 22:40:27 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-19 22:40:27 - [$] Processed image in memory for page 1!
+2024-05-19 22:40:27 - [$] Processed image in memory for page 1!
+2024-05-19 22:40:27 - [$] Processed image in memory for page 1!
+2024-05-19 22:40:27 - [$] Calling API to extract certification info for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf...
+2024-05-19 22:40:27 - [$] Extracting vaccination info from Blizzard, Rachel RN - 2023 COVID & FLU.pdf...
+2024-05-19 22:40:27 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 22:40:57 - [I] Starting Application...
+2024-05-19 22:40:57 - [I] API key loaded successfully.
+2024-05-19 22:41:18 - [#] Certification Extraction complete for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf | elapsed_time 51.43851089477539
+2024-05-19 22:41:25 - [#] Extraction complete for Blizzard, Rachel RN - 2023 COVID & FLU.pdf | elapsed_time 58.21712040901184
+2024-05-19 22:41:31 - [#] Certification Extraction complete for Blizzard, Rachel RN - PALS 04-31-2025.pdf | elapsed_time 67.48494863510132
+2024-05-19 22:41:39 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 72.09864377975464
+2024-05-19 22:41:39 - [$] Processed image in memory for page 2!
+2024-05-19 22:41:40 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-19 22:41:52 - [#] Certification Extraction complete for Blizzard, Rachel RN - BLS 04-31-2025.pdf | elapsed_time 88.5295193195343
+2024-05-19 22:42:00 - [#] Certification Extraction complete for Blizzard, Rachel RN - ACLS 04-31-2025.pdf | elapsed_time 96.24730515480042
+2024-05-20 10:02:36 - [I] Starting Application...
+2024-05-20 10:02:37 - [I] API key loaded successfully.
+2024-05-20 10:02:45 - [I] Starting Application...
+2024-05-20 10:02:45 - [I] API key loaded successfully.
+2024-05-20 10:02:52 - [I] Starting Application...
+2024-05-20 10:02:52 - [I] API key loaded successfully.
+2024-05-20 10:02:53 - [I] Starting Application...
+2024-05-20 10:02:53 - [I] API key loaded successfully.
+2024-05-20 10:02:53 - [$] Processing many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-20 10:02:53 - [$] Processing many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-20 10:02:53 - [$] Processing many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-20 10:02:53 - [$] Processing many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-20 10:02:53 - [$] Processing many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-20 10:02:53 - [$] Processing many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-20 10:02:54 - [$] classifying many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-20 10:02:54 - [$] classifying many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-20 10:02:55 - [$] classifying many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-20 10:02:55 - [$] classifying many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-20 10:02:55 - [$] classifying many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-20 10:02:55 - [$] classifying many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-20 10:02:56 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-20 10:02:56 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-20 10:02:56 - [$] Processed image in memory for page 1!
+2024-05-20 10:02:56 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-20 10:02:56 - [$] Processed image in memory for page 1!
+2024-05-20 10:02:56 - [$] Processed image in memory for page 1!
+2024-05-20 10:02:56 - [$] Calling API to extract certification info for Blizzard, Rachel RN - ACLS 04-31-2025.pdf...
+2024-05-20 10:02:56 - [$] Calling API to extract certification info for Blizzard, Rachel RN - BLS 04-31-2025.pdf...
+2024-05-20 10:02:56 - [$] Calling API to extract certification info for Blizzard, Rachel RN - PALS 04-31-2025.pdf...
+2024-05-20 10:02:57 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-20 10:02:58 - [$] Processed image in memory for page 1!
+2024-05-20 10:02:58 - [$] Calling API to extract certification info for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf...
+2024-05-20 10:03:00 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-20 10:03:00 - [$] Processed image in memory for page 1!
+2024-05-20 10:03:00 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-20 10:03:00 - [$] Processed image in memory for page 1!
+2024-05-20 10:03:00 - [$] Extracting vaccination info from Blizzard, Rachel RN - 2023 COVID & FLU.pdf...
+2024-05-20 10:03:01 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:03:06 - [#] Certification Extraction complete for Blizzard, Rachel RN - BLS 04-31-2025.pdf | elapsed_time 9.83023190498352
+2024-05-20 10:03:17 - [#] Certification Extraction complete for Blizzard, Rachel RN - PALS 04-31-2025.pdf | elapsed_time 20.66209626197815
+2024-05-20 10:03:19 - [#] Certification Extraction complete for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf | elapsed_time 21.085471153259277
+2024-05-20 10:03:21 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 20.871609210968018
+2024-05-20 10:03:22 - [$] Processed image in memory for page 2!
+2024-05-20 10:03:22 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:03:24 - [#] Extraction complete for Blizzard, Rachel RN - 2023 COVID & FLU.pdf | elapsed_time 23.62607431411743
+2024-05-20 10:03:26 - [#] Certification Extraction complete for Blizzard, Rachel RN - ACLS 04-31-2025.pdf | elapsed_time 29.734949350357056
+2024-05-20 10:03:29 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 7.366295099258423
+2024-05-20 10:03:30 - [$] Processed image in memory for page 3!
+2024-05-20 10:03:30 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:03:34 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 4.1867835521698
+2024-05-20 10:03:35 - [$] Processed image in memory for page 4!
+2024-05-20 10:03:35 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:03:39 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 4.328374147415161
+2024-05-20 10:03:40 - [$] Processed image in memory for page 5!
+2024-05-20 10:03:41 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:03:49 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 8.715411186218262
+2024-05-20 10:03:50 - [$] Processed image in memory for page 6!
+2024-05-20 10:03:51 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:03:56 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 5.159480094909668
+2024-05-20 10:03:56 - [D] Processing many to one complete, creating final file
+2024-05-20 10:04:00 - [I] Starting Application...
+2024-05-20 10:04:00 - [I] API key loaded successfully.
+2024-05-20 10:09:13 - [I] Starting Application...
+2024-05-20 10:09:13 - [I] API key loaded successfully.
+2024-05-20 10:09:13 - [$] Processing many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-20 10:09:13 - [$] Processing many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-20 10:09:13 - [$] Processing many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-20 10:09:13 - [$] Processing many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-20 10:09:13 - [$] Processing many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-20 10:09:13 - [$] Processing many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-20 10:09:13 - [$] classifying many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-20 10:09:14 - [$] classifying many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-20 10:09:14 - [$] classifying many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-20 10:09:15 - [$] classifying many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-20 10:09:15 - [$] classifying many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-20 10:09:15 - [$] classifying many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-20 10:09:15 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-20 10:09:16 - [$] Processed image in memory for page 1!
+2024-05-20 10:09:16 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-20 10:09:16 - [$] Processed image in memory for page 1!
+2024-05-20 10:09:16 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-20 10:09:16 - [$] Calling API to extract certification info for Blizzard, Rachel RN - ACLS 04-31-2025.pdf...
+2024-05-20 10:09:16 - [$] Processed image in memory for page 1!
+2024-05-20 10:09:16 - [$] Calling API to extract certification info for Blizzard, Rachel RN - BLS 04-31-2025.pdf...
+2024-05-20 10:09:16 - [$] Calling API to extract certification info for Blizzard, Rachel RN - PALS 04-31-2025.pdf...
+2024-05-20 10:09:17 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-20 10:09:17 - [$] Processed image in memory for page 1!
+2024-05-20 10:09:17 - [$] Calling API to extract certification info for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf...
+2024-05-20 10:09:19 - [#] Certification Extraction complete for Blizzard, Rachel RN - ACLS 04-31-2025.pdf | elapsed_time 3.3695943355560303
+2024-05-20 10:09:19 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-20 10:09:20 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-20 10:09:20 - [$] Processed image in memory for page 1!
+2024-05-20 10:09:20 - [#] Certification Extraction complete for Blizzard, Rachel RN - BLS 04-31-2025.pdf | elapsed_time 3.67167592048645
+2024-05-20 10:09:20 - [#] Certification Extraction complete for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf | elapsed_time 2.585709810256958
+2024-05-20 10:09:20 - [$] Processed image in memory for page 1!
+2024-05-20 10:09:20 - [$] Extracting vaccination info from Blizzard, Rachel RN - 2023 COVID & FLU.pdf...
+2024-05-20 10:09:20 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:09:22 - [#] Certification Extraction complete for Blizzard, Rachel RN - PALS 04-31-2025.pdf | elapsed_time 5.873170375823975
+2024-05-20 10:09:23 - [#] Extraction complete for Blizzard, Rachel RN - 2023 COVID & FLU.pdf | elapsed_time 3.643547296524048
+2024-05-20 10:09:26 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 5.833429336547852
+2024-05-20 10:09:26 - [$] Processed image in memory for page 2!
+2024-05-20 10:09:26 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:10:13 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 46.72889971733093
+2024-05-20 10:10:14 - [$] Processed image in memory for page 3!
+2024-05-20 10:10:14 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:10:18 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 4.428640365600586
+2024-05-20 10:10:19 - [$] Processed image in memory for page 4!
+2024-05-20 10:10:19 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:15:58 - [I] Starting Application...
+2024-05-20 10:15:58 - [I] API key loaded successfully.
+2024-05-20 10:15:58 - [$] Processing many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-20 10:15:58 - [$] Processing many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-20 10:15:58 - [$] Processing many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-20 10:15:58 - [$] Processing many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-20 10:15:58 - [$] Processing many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-20 10:15:58 - [$] Processing many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-20 10:15:59 - [$] classifying many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-20 10:15:59 - [$] classifying many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-20 10:16:00 - [$] classifying many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-20 10:16:00 - [$] classifying many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-20 10:16:00 - [$] classifying many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-20 10:16:00 - [$] classifying many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-20 10:16:00 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - ACLS 04-31-2025.pdf
+2024-05-20 10:16:01 - [$] Processed image in memory for page 1!
+2024-05-20 10:16:01 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - BLS 04-31-2025.pdf
+2024-05-20 10:16:01 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - PALS 04-31-2025.pdf
+2024-05-20 10:16:01 - [$] Processed image in memory for page 1!
+2024-05-20 10:16:01 - [$] Processed image in memory for page 1!
+2024-05-20 10:16:01 - [$] Calling API to extract certification info for Blizzard, Rachel RN - ACLS 04-31-2025.pdf...
+2024-05-20 10:16:01 - [$] Calling API to extract certification info for Blizzard, Rachel RN - BLS 04-31-2025.pdf...
+2024-05-20 10:16:01 - [$] Calling API to extract certification info for Blizzard, Rachel RN - PALS 04-31-2025.pdf...
+2024-05-20 10:16:02 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - 2023 COVID & FLU.pdf
+2024-05-20 10:16:03 - [$] Processed image in memory for page 1!
+2024-05-20 10:16:03 - [$] File is identified as Certification, processing certification many to one Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf
+2024-05-20 10:16:03 - [$] Processed image in memory for page 1!
+2024-05-20 10:16:03 - [$] Extracting vaccination info from Blizzard, Rachel RN - 2023 COVID & FLU.pdf...
+2024-05-20 10:16:03 - [$] Calling API to extract certification info for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf...
+2024-05-20 10:16:04 - [#] Certification Extraction complete for Blizzard, Rachel RN - BLS 04-31-2025.pdf | elapsed_time 2.9580795764923096
+2024-05-20 10:16:05 - [$] File is identified as Vaccination Record Processing vaccination many to one Blizzard, Rachel RN - IMMUNIZATIONS.pdf
+2024-05-20 10:16:06 - [#] Certification Extraction complete for Blizzard, Rachel RN - ACLS 04-31-2025.pdf | elapsed_time 4.5918495655059814
+2024-05-20 10:16:06 - [$] Processed image in memory for page 1!
+2024-05-20 10:16:06 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:16:06 - [#] Certification Extraction complete for Blizzard, Rachel RN - PALS 04-31-2025.pdf | elapsed_time 5.093422174453735
+2024-05-20 10:16:07 - [#] Extraction complete for Blizzard, Rachel RN - 2023 COVID & FLU.pdf | elapsed_time 4.186212062835693
+2024-05-20 10:16:07 - [#] Certification Extraction complete for Blizzard, Rachel RN - TNCC exp 11-30-2026.pdf | elapsed_time 4.178038597106934
+2024-05-20 10:16:11 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 4.808110952377319
+2024-05-20 10:16:11 - [$] Processed image in memory for page 2!
+2024-05-20 10:16:11 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:16:22 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 10.330434799194336
+2024-05-20 10:16:22 - [$] Processed image in memory for page 3!
+2024-05-20 10:16:22 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:16:34 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 11.399241209030151
+2024-05-20 10:16:34 - [$] Processed image in memory for page 4!
+2024-05-20 10:16:34 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:16:41 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 7.300501346588135
+2024-05-20 10:16:43 - [$] Processed image in memory for page 5!
+2024-05-20 10:16:43 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:16:47 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 4.063276052474976
+2024-05-20 10:16:48 - [$] Processed image in memory for page 6!
+2024-05-20 10:16:48 - [$] Extracting vaccination info from Blizzard, Rachel RN - IMMUNIZATIONS.pdf...
+2024-05-20 10:16:52 - [#] Extraction complete for Blizzard, Rachel RN - IMMUNIZATIONS.pdf | elapsed_time 4.063583135604858
+2024-05-20 10:16:52 - [D] Processing many to one complete, creating final file
+2024-05-20 10:16:57 - [I] Starting Application...
+2024-05-20 10:16:57 - [I] API key loaded successfully.
