@@ -1,7 +1,6 @@
 import time
 import concurrent.futures
 from io import BytesIO
-import streamlit as st
 from htmldocx import HtmlToDocx
 from gpt import *
 from utils import *
@@ -103,21 +102,20 @@ def process_files(client, uploaded_files_doctors, uploaded_files_nurses):
     processed_files_dr = []
     processed_files_nr = []
 
-    with st.spinner(f'Processing files...'):
-        max_processes = 3
-        with concurrent.futures.ThreadPoolExecutor(max_processes) as executor:
-            results = executor.map(lambda file_info: process_each_file(client, file_info), all_files)
-        for type, message, processed_file, cost in results:
-            total_cost += cost
-            if type == 'doctors' and processed_file:
-                processed_files_dr.append(processed_file)
-                st.success(message)
-            elif type == 'doctors':
-                st.error(message)
-            if type == 'nurses' and processed_file:
-                processed_files_nr.append(processed_file)
-                st.success(message)
-            elif type == 'nurses':
-                st.error(message)
+    max_processes = 3
+    with concurrent.futures.ThreadPoolExecutor(max_processes) as executor:
+        results = executor.map(lambda file_info: process_each_file(client, file_info), all_files)
+    for type, message, processed_file, cost in results:
+        total_cost += cost
+        if type == 'doctors' and processed_file:
+            processed_files_dr.append(processed_file)
+#            print(message)
+        elif type == 'doctors':
+            print(message)
+        if type == 'nurses' and processed_file:
+            processed_files_nr.append(processed_file)
+#            print(message)
+        elif type == 'nurses':
+            print(message)
 
     return processed_files_dr, processed_files_nr, total_cost
