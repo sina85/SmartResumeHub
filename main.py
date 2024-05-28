@@ -1,15 +1,80 @@
-from openai import OpenAI
-import streamlit as st
-import instructor
-from files import *
-from many_to_one import *
 import json
-from inline import download_processed_files
+from fastapi import FastAPI, HTTPException, File, UploadFile
+from fastapi.responses import FileResponse
+import tempfile
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import boto3
+from botocore.exceptions import NoCredentialsError
+import os
+from openai import OpenAI
+import instructor
 
-def main():
-    
+app = FastAPI()
+
+# Load AWS credentials from environment variables or your configuration management system
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+#S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
+S3_BUCKET_NAME = 'smart-resume-hub'
+
+s3_client = boto3.client(
+    's3',
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+)
+
+class PresignedUrlRequest(BaseModel):
+    fileName: str
+    fileType: str
+
+# Add CORS middleware
+origins = [
+    "http://localhost:3000",  # React front-end
+    "http://127.0.0.1:3000",  # React front-end
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.post("/api/upload")
+async def upload_file(file: UploadFile = File(...)):
+    try:
+        s3_client.upload_fileobj(file.file, S3_BUCKET_NAME, file.filename)
+        file_url = f"https://{S3_BUCKET_NAME}.s3.amazonaws.com/{file.filename}"
+        return {"fileUrl": file_url}
+    except NoCredentialsError:
+        raise HTTPException(status_code=500, detail="AWS credentials not available")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+@app.get("/api/fetch/{filename}")
+async def fetch_file(filename: str):
+    try:
+        # Create a temporary file
+        with tempfile.NamedTemporaryFile(delete=False) as tmp:
+            s3_client.download_fileobj(S3_BUCKET_NAME, filename, tmp)
+            tmp.seek(0)
+            return FileResponse(tmp.name, filename=filename)
+    except NoCredentialsError:
+        raise HTTPException(status_code=500, detail="AWS credentials not available")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/")
+async def read_root():
+    return {"Hello": "World"}
+
+def log_debug_info(message):
+    # Placeholder for your logging function
+    print(message)
+
+async def startup_event():
     log_debug_info('[I] Starting Application...')
-    st.title("Tribal Resume Converter")
 
     api_key = ''
     config_path = 'config.json'
@@ -22,8 +87,6 @@ def main():
         if not api_key:
             error_message = 'API key not found in the configuration file.'
             log_debug_info(f'[E] {error_message}')
-            st.error(error_message)
-            st.stop()
 
         client = OpenAI(api_key=api_key)
         client = instructor.from_openai(client)
@@ -32,70 +95,18 @@ def main():
     except FileNotFoundError:
         error_message = 'Configuration file not found.'
         log_debug_info(f'[E] {error_message}')
-        st.error(error_message)
-        st.stop()
 
     except json.JSONDecodeError:
         error_message = 'Invalid JSON format in the configuration file.'
         log_debug_info(f'[E] {error_message}')
-        st.error(error_message)
-        st.stop()
 
     except Exception as e:
         error_message = f'An error occurred while loading the API key: {str(e)}'
         log_debug_info(f'[E] {error_message}')
-        st.error(error_message)
-        st.stop()
-    
-    # Initialize session state for storing processed files
-    if 'processed_files_doctors' not in st.session_state:
-        st.session_state.processed_files_doctors = []
-    if 'processed_files_nurses' not in st.session_state:
-        st.session_state.processed_files_nurses = []
-    if 'processed_file_many_to_one' not in st.session_state:
-        st.session_state.processed_file_many_to_one = []
-    
-    # File uploaders
-    uploaded_files_doctors = st.file_uploader("Upload doctors' resumes", accept_multiple_files=True, type=['pdf', 'docx'], key="doctors")
-    uploaded_files_nurses = st.file_uploader("Upload nurses' resumes", accept_multiple_files=True, type=['pdf', 'docx'], key="nurses")
-    uploaded_files_many_to_one = st.file_uploader("Upload Many to One", accept_multiple_files=True, type=['pdf', 'docx', 'png', 'jpg'], key="many_to_one")
-    
-    # Process files button
-    if st.button("Process Files"):
-        # Clear previous session data
-        st.session_state.processed_files_doctors = []
-        st.session_state.processed_files_nurses = []
-        st.session_state.total_cost = 0.0
 
-
-        file_doctors, file_nurses, total_cost = process_files(client, uploaded_files_doctors, uploaded_files_nurses)
-        
-        if file_doctors:
-            st.session_state.processed_files_doctors = file_doctors
-        if file_nurses:
-            st.session_state.processed_files_nurses = file_nurses
-    
-        st.session_state.total_cost = total_cost
-
-        st.write(f"Total Cost for Processing: ${total_cost:.6f}")
-    
-    if st.button("Process Many to One"):
-        st.session_state.processed_file_many_to_one = []
-
-        if uploaded_files_many_to_one:
-            processed_file_many_to_one = process_many_to_one(client, uploaded_files_many_to_one)
-            if processed_file_many_to_one:
-                st.session_state.processed_file_many_to_one = processed_file_many_to_one
-        else:
-            st.error("Please upload at least one file.")
-
-    # Display download buttons if there are processed files
-    if st.session_state.processed_files_doctors:
-        download_processed_files(st.session_state.processed_files_doctors, 'doctors')
-    if st.session_state.processed_files_nurses:
-        download_processed_files(st.session_state.processed_files_nurses, 'nurses')
-    if st.session_state.processed_file_many_to_one:
-        download_processed_files(st.session_state.processed_file_many_to_one, 'many_to_one')
+# Register the startup event
+app.add_event_handler("startup", startup_event)
 
 if __name__ == "__main__":
-    main()
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
