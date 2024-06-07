@@ -2,9 +2,10 @@ data.html
 temp
 config.json
 venv/
-logs/
+logs/debug.log
 Resume_Sample/
 __pycache__/
+images/
 chat_debug.py
 combined_files.txt
 concat_files.py

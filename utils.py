@@ -1,6 +1,8 @@
 import time
 from classes import log_debug_info
+from g_lobal import Capp
 
+@Capp.task
 def format_personal_details_into_html(personal_details, filename):
     log_debug_info(f"[S] Formatting personal details {filename}...")
     start_time = time.time()
@@ -15,6 +17,7 @@ def format_personal_details_into_html(personal_details, filename):
     log_debug_info(f"[D] Formating personal details took {elapsed_time} seconds for {filename} | start_time:{start_time}")
     return res
 
+@Capp.task
 def format_educational_details_into_html(education_list, filename):
     log_debug_info(f"[S] Formatting educational details {filename}...")
     start_time = time.time()
@@ -40,6 +43,7 @@ def format_educational_details_into_html(education_list, filename):
     log_debug_info(f"[D] Formating educational details took {elapsed_time} seconds for {filename} | start_time:{start_time}")
     return res
 
+@Capp.task
 def format_work_experience_details_into_html(work_experiences, T, filename):
     log_debug_info(f"[S] Formatting work experience {filename}...")
     start_time = time.time()
@@ -73,6 +77,7 @@ def format_work_experience_details_into_html(work_experiences, T, filename):
     return work_info_html
 
 
+@Capp.task
 def format_other_details_into_html(license_list, certification_list, filename):
     log_debug_info(f"[S] Formatting licenses and certifications {filename}...")
 
@@ -99,6 +104,7 @@ def format_other_details_into_html(license_list, certification_list, filename):
     log_debug_info(f"[D] Formating licenses and certifications took {elapsed_time} seconds for {filename} | start_time:{start_time}")
 
     return res
+
 
 def format_final_template(personal, educational, work_experience, other, filename):
     log_debug_info(f"[S] Formatting final template {filename}...")
