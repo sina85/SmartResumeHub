@@ -5,7 +5,9 @@ import base64
 from inline import encode_image, optimize_image
 import fitz
 from io import BytesIO
+from g_lobal import Capp
 
+@Capp.task
 def extract_personal_and_educational_details(client, context, filename, meta_data):
     log_debug_info(f"[S] Extracting personal and educational details {filename}...")
 
@@ -28,6 +30,7 @@ def extract_personal_and_educational_details(client, context, filename, meta_dat
 
     return res
 
+@Capp.task
 def extract_work_experience(client, context, filename, meta_data):
     prompt = f"""
     Carefully review the entire resume and extract every job experience listed. For each job, include the position title, company name, location, start and end dates, 
@@ -50,7 +53,7 @@ def extract_work_experience(client, context, filename, meta_data):
 
     return res
 
-
+@Capp.task
 def extract_licenses_and_certifications(client, context, filename, meta_data):
 
     log_debug_info(f"[S] Extracting licenses and certifications {filename}...")

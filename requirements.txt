@@ -1,4 +1,3 @@
-streamlit
 python-docx
 openai
 requests
@@ -13,3 +12,4 @@ pytesseract
 pdf2image
 htmldocx
 anthropic
+tiktoken

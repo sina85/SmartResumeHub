@@ -6,6 +6,21 @@ from gpt import *
 from utils import *
 from ocr import *
 from inline import calculate_cost
+import asyncio
+from g_lobal import *
+from celery import group
+from inline import download_file_from_s3
+
+async def notify_frontend(filename, file_type, status):
+    for connection in sse_connections:
+        await connection.put({
+            "event": "file_processed",
+            "data": {
+                "filename": filename,
+                "file_type": file_type,
+                "status": status
+            }
+        })
 
 def process_resume(client, text, filename, flag):
 
@@ -13,16 +28,15 @@ def process_resume(client, text, filename, flag):
 
     start_time = time.time()
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        
-        future_pe = executor.submit(extract_personal_and_educational_details, client, text, filename, meta_data)
-        future_work = executor.submit(extract_work_experience, client, text, filename, meta_data)
-        future_lc = executor.submit(extract_licenses_and_certifications, client, text, filename, meta_data)
+    extraction_group = group(
+        extract_personal_and_educational_details.s(client, text, filename, meta_data),
+        extract_work_experience.s(client, text, filename, meta_data),
+        extract_licenses_and_certifications.s(client, text, filename, meta_data)
+    )
 
-        # Await the results of the futures
-        pe = future_pe.result()
-        work = future_work.result()
-        lc = future_lc.result()
+    results = extraction_group().get()  # Blocking call to get the results
+
+    pe, work, lc = results
     
     elapsed_time = time.time() - start_time
 
@@ -35,17 +49,17 @@ def process_resume(client, text, filename, flag):
     certification = lc.certifications
 
     start_time = time.time()
+    
+    formatting_group = group(
+        format_personal_details_into_html.s(personal, filename),
+        format_educational_details_into_html.s(educational, filename),
+        format_work_experience_details_into_html.s(work, flag, filename),
+        format_other_details_into_html.s(licenses, certification, filename)
+    )
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        fpersonal_info = executor.submit(format_personal_details_into_html, personal, filename)
-        feducational_info = executor.submit(format_educational_details_into_html, educational, filename)
-        fwork_info = executor.submit(format_work_experience_details_into_html, work, flag, filename)
-        fother_info = executor.submit(format_other_details_into_html, licenses, certification, filename)
+    formatted_results = formatting_group().get()  # Blocking call to get the results
 
-        personal_info = fpersonal_info.result()
-        educational_info = feducational_info.result()
-        work_info = fwork_info.result()
-        other_info = fother_info.result()
+    personal_info, educational_info, work_info, other_info = formatted_results
 
     final_response = format_final_template(personal=personal_info, educational=educational_info, work_experience=work_info, other=other_info, filename=filename)
     #final_html = get_final_html(final_response).replace('```html', '').replace('```', '')
@@ -61,12 +75,14 @@ def process_resume(client, text, filename, flag):
 
     return output_stream.getvalue()
 
-def process_each_file(client, all_files):
-    start_time = time.time()  # Start timing
+@Capp.task
+def process_each_file(filename, file_type):
+    start_time = time.time()
 
-    file, type = all_files
+    # Retrieve file from S3
+    file_content = download_file_from_s3(filename)
 
-    filename, file_content = file.name, file.getvalue()
+    text = extract_text_from_file(filename, file_content)
 
     text = extract_text_from_file(filename, file_content)
 
@@ -79,9 +95,9 @@ def process_each_file(client, all_files):
         else:
             text = OCR_text
 
-    if type == 'doctors':
+    if file_type == 'doctors':
         doc_bytes = process_resume(client, text, filename, True)
-    elif type == 'nurses':    
+    elif file_type == 'nurses':
         doc_bytes = process_resume(client, text, filename, False)
 
     elapsed_time = time.time() - start_time  # End timing
@@ -90,32 +106,6 @@ def process_each_file(client, all_files):
 
     cost = calculate_cost(text)
 
-    return type, f"Processed file: {filename}", (f"{filename.split('.pdf')[0]}-done.docx", doc_bytes), cost
+    asyncio.run(notify_frontend(filename, file_type, 'processed'))
 
-def process_files(client, uploaded_files_doctors, uploaded_files_nurses):
-
-    doctor_files = [(file, 'doctors') for file in uploaded_files_doctors]
-    nurse_files = [(file, 'nurses') for file in uploaded_files_nurses]
-    all_files = doctor_files + nurse_files
-    total_cost = 0
-
-    processed_files_dr = []
-    processed_files_nr = []
-
-    max_processes = 3
-    with concurrent.futures.ThreadPoolExecutor(max_processes) as executor:
-        results = executor.map(lambda file_info: process_each_file(client, file_info), all_files)
-    for type, message, processed_file, cost in results:
-        total_cost += cost
-        if type == 'doctors' and processed_file:
-            processed_files_dr.append(processed_file)
-#            print(message)
-        elif type == 'doctors':
-            print(message)
-        if type == 'nurses' and processed_file:
-            processed_files_nr.append(processed_file)
-#            print(message)
-        elif type == 'nurses':
-            print(message)
-
-    return processed_files_dr, processed_files_nr, total_cost
+    return file_type, f"Processed file: {filename}", (f"{filename.split('.pdf')[0]}-done.docx", doc_bytes), cost
