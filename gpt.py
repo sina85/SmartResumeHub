@@ -2,12 +2,10 @@ from classes import *
 import time
 from inline import extract_text_from_file
 import base64
-from inline import encode_image, optimize_image
 import fitz
 from io import BytesIO
-from g_lobal import Capp
+from inline import optimize_image, encode_image
 
-@Capp.task
 def extract_personal_and_educational_details(client, context, filename, meta_data):
     log_debug_info(f"[S] Extracting personal and educational details {filename}...")
 
@@ -30,8 +28,9 @@ def extract_personal_and_educational_details(client, context, filename, meta_dat
 
     return res
 
-@Capp.task
+
 def extract_work_experience(client, context, filename, meta_data):
+
     prompt = f"""
     Carefully review the entire resume and extract every job experience listed. For each job, include the position title, company name, location, start and end dates, 
     and particularly note the hours worked if mentioned. It's crucial to capture all experiences, from the earliest to the most recent, ensuring no job is omitted.
@@ -53,9 +52,7 @@ def extract_work_experience(client, context, filename, meta_data):
 
     return res
 
-@Capp.task
 def extract_licenses_and_certifications(client, context, filename, meta_data):
-
     log_debug_info(f"[S] Extracting licenses and certifications {filename}...")
 
     prompt = f"""Extract licences and certifications from the following resume,
@@ -77,7 +74,6 @@ def extract_licenses_and_certifications(client, context, filename, meta_data):
     log_debug_info(f"[D] Extracting licenses and certifications took {elapsed_time} seconds for {filename} | start_time:{start_time}")
 
     return res
-
 
 def extract_metadata(client, context, filename):
     prompt = f"""Please review the following resume carefully and provide a detailed report covering the following aspects:
@@ -170,7 +166,9 @@ def extract_certification_info(client, image_bytes, filename):
     
     This is a scanned image and might contain handwritten annotations.
     If there is missing information please respond with Not Specified.
-    There may be multiple certifications or one."""
+    There may be multiple ceoptimize_image(image_bytes)
+
+    base64_image = encode_imagertifications or one."""
 
     images_content = [{"type": "image_url","image_url": {"url": f"data:image/jpeg;base64,{base64_image}", "detail": "high"}}]
 
