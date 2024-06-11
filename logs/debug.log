@@ -1,0 +1,111 @@
+2024-06-10 00:41:51 - [I] Starting Application...
+2024-06-10 00:41:56 - Fetching credits for user_id: 1
+2024-06-10 00:41:56 - Error fetching credits balance: Textual SQL expression 'SELECT credits FROM users...' should be explicitly declared as text('SELECT credits FROM users...')
+2024-06-10 00:41:57 - Fetching credits for user_id: 1
+2024-06-10 00:41:57 - Error fetching credits balance: Textual SQL expression 'SELECT credits FROM users...' should be explicitly declared as text('SELECT credits FROM users...')
+2024-06-10 00:43:23 - [I] Starting Application...
+2024-06-10 00:43:29 - Fetching credits for user_id: 1
+2024-06-10 00:43:29 - Error fetching credits balance: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
+2024-06-10 00:43:31 - Fetching credits for user_id: 1
+2024-06-10 00:43:31 - Error fetching credits balance: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
+2024-06-10 00:46:56 - [I] Starting Application...
+2024-06-10 00:47:15 - Fetching credits for user_id: 1
+2024-06-10 00:47:15 - Error fetching credits balance: password authentication failed for user "psql"
+2024-06-10 00:47:16 - Fetching credits for user_id: 1
+2024-06-10 00:47:16 - Error fetching credits balance: password authentication failed for user "psql"
+2024-06-10 09:10:26 - [I] Starting Application...
+2024-06-10 09:10:31 - Fetching credits for user_id: 1
+2024-06-10 09:10:31 - Error fetching credits balance: [Errno 111] Connection refused
+2024-06-10 09:10:39 - Received request data: user_id=1 credits=5 amount=500
+2024-06-10 09:11:01 - [*] Received file: Shabestari, Babak DDS - CV.pdf with type: doctors
+2024-06-10 09:11:01 - [I] API key loaded successfully.
+2024-06-10 09:11:01 - Notify frontend: {"filename": "Shabestari, Babak DDS - CV.pdf", "status": "in progress"}
+
+
+2024-06-10 09:11:01 - Event generated: {"filename": "Shabestari, Babak DDS - CV.pdf", "status": "in progress"}
+
+
+2024-06-10 09:11:01 - [S] Pre-processing Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:11:14 - [D] Extracting ResumeMetadata took 12.409115076065063 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718035861.7472675
+2024-06-10 09:11:14 - [S] Extracting personal and educational details Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:11:14 - [S] Extracting work experience Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:11:14 - [S] Extracting licenses and certifications Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:11:14 - [D] Extracting work experience took 0.5843777656555176 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718035874.1732283
+2024-06-10 09:11:16 - [D] Extracting licenses and certifications took 1.9375278949737549 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718035874.1626794
+2024-06-10 09:11:18 - [D] Extracting personal and educational details took 3.8477625846862793 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718035874.157304
+2024-06-10 09:11:18 - [F] Detail Extraction took 3.84930157661438 for Shabestari, Babak DDS - CV.pdf.
+2024-06-10 09:11:18 - [S] Formatting the data!
+2024-06-10 09:11:18 - [S] Formatting personal details Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:11:18 - [D] Formating personal details took 7.62939453125e-06 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718035878.0066864
+2024-06-10 09:11:18 - [S] Formatting educational details Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:11:18 - [D] Formating educational details took 1.8596649169921875e-05 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718035878.0074978
+2024-06-10 09:11:18 - [S] Formatting work experience Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:11:18 - [S] Formatting licenses and certifications Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:11:18 - [D] Formating licenses and certifications took 1.430511474609375e-05 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718035878.0353622
+2024-06-10 09:11:37 - [D] Formating work experience took 19.507121324539185 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718035878.0081155
+2024-06-10 09:11:37 - [S] Formatting final template Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:11:37 - [D] Formating final template took 9.298324584960938e-06 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718035897.516249
+2024-06-10 09:11:37 - [F] Formatting file Shabestari, Babak DDS - CV.pdf took 19.510160446166992 seconds!
+2024-06-10 09:11:37 - [F] Processing file Shabestari, Babak DDS - CV.pdf took 35.91028380393982 seconds
+2024-06-10 09:11:39 - Notify frontend: {"filename": "Shabestari, Babak DDS - CV.pdf", "status": "processed"}
+
+
+2024-06-10 09:11:39 - Event generated: {"filename": "Shabestari, Babak DDS - CV.pdf", "status": "processed"}
+
+
+2024-06-10 09:11:56 - Received request data: user_id=1 credits=5 amount=500
+2024-06-10 09:25:22 - [I] Starting Application...
+2024-06-10 09:25:28 - Fetching credits for user_id: 1
+2024-06-10 09:25:28 - Error fetching credits balance: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "users" does not exist
+[SQL: SELECT credits FROM users WHERE id = $1]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-06-10 09:29:12 - [I] Starting Application...
+2024-06-10 09:30:24 - [I] Starting Application...
+2024-06-10 09:30:30 - [I] Starting Application...
+2024-06-10 09:53:12 - [I] Starting Application...
+2024-06-10 09:53:30 - [*] Received file: Shabestari, Babak DDS - CV.pdf with type: doctors
+2024-06-10 09:53:30 - [I] API key loaded successfully.
+2024-06-10 09:53:30 - Notify frontend: {"filename": "Shabestari, Babak DDS - CV.pdf", "status": "in progress"}
+
+
+2024-06-10 09:53:30 - Event generated: {"filename": "Shabestari, Babak DDS - CV.pdf", "status": "in progress"}
+
+
+2024-06-10 09:53:31 - [S] Pre-processing Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:53:39 - [D] Extracting ResumeMetadata took 8.003546714782715 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718038411.0735471
+2024-06-10 09:53:39 - [S] Extracting personal and educational details Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:53:39 - [S] Extracting licenses and certifications Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:53:39 - [S] Extracting work experience Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:53:39 - [D] Extracting work experience took 0.6984624862670898 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718038419.1003356
+2024-06-10 09:53:40 - [D] Extracting licenses and certifications took 1.2885315418243408 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718038419.0904446
+2024-06-10 09:53:42 - [D] Extracting personal and educational details took 3.0284583568573 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718038419.079491
+2024-06-10 09:53:42 - [F] Detail Extraction took 3.031282901763916 for Shabestari, Babak DDS - CV.pdf.
+2024-06-10 09:53:42 - [S] Formatting the data!
+2024-06-10 09:53:42 - [S] Formatting personal details Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:53:42 - [D] Formating personal details took 4.76837158203125e-06 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718038422.1093512
+2024-06-10 09:53:42 - [S] Formatting work experience Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:53:42 - [S] Formatting educational details Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:53:42 - [S] Formatting licenses and certifications Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:53:42 - [D] Formating licenses and certifications took 1.6689300537109375e-05 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718038422.1131082
+2024-06-10 09:53:42 - [D] Formating educational details took 1.4781951904296875e-05 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718038422.1138122
+2024-06-10 09:54:00 - [D] Formating work experience took 17.906769275665283 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718038422.109976
+2024-06-10 09:54:00 - [S] Formatting final template Shabestari, Babak DDS - CV.pdf...
+2024-06-10 09:54:00 - [D] Formating final template took 6.4373016357421875e-06 seconds for Shabestari, Babak DDS - CV.pdf | start_time:1718038440.0176947
+2024-06-10 09:54:00 - [F] Formatting file Shabestari, Babak DDS - CV.pdf took 17.908992052078247 seconds!
+2024-06-10 09:54:00 - [F] Processing file Shabestari, Babak DDS - CV.pdf took 29.090943813323975 seconds
+2024-06-10 09:54:00 - Notify frontend: {"filename": "Shabestari, Babak DDS - CV.pdf", "status": "processed"}
+
+
+2024-06-10 09:54:00 - Event generated: {"filename": "Shabestari, Babak DDS - CV.pdf", "status": "processed"}
+
+
+2024-06-10 09:54:25 - Received request data: user_id=1 credits=20 amount=1600
+2024-06-10 09:54:25 - Error creating checkout session: No API key provided. (HINT: set your API key using "stripe.api_key = <API-KEY>"). You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.
+2024-06-10 09:54:38 - Received request data: user_id=1 credits=5 amount=500
+2024-06-10 09:54:38 - Error creating checkout session: No API key provided. (HINT: set your API key using "stripe.api_key = <API-KEY>"). You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.
+2024-06-10 09:55:36 - Received request data: user_id=1 credits=5 amount=500
+2024-06-10 09:55:36 - Error creating checkout session: No API key provided. (HINT: set your API key using "stripe.api_key = <API-KEY>"). You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.
+2024-06-10 09:57:29 - [I] Starting Application...
+2024-06-10 09:57:29 - Received request data: user_id=1 credits=5 amount=500
+2024-06-10 09:57:48 - [I] Starting Application...

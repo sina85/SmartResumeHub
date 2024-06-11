@@ -26,6 +26,7 @@ S3_BUCKET_NAME = 'smart-resume-hub'
 api_key = ''
 config_path = 'config.json'
 sse_connections = []
+file_statuses = {}
 
 s3_client = boto3.client(
     's3',
@@ -33,22 +34,27 @@ s3_client = boto3.client(
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY
 )
 
+def update_file_status(filename, status):
+    file_statuses[filename] = status
+def get_file_status(filename):
+    return file_statuses.get(filename, 'not processed')
+
 def download_file_from_s3(filename):
     file_obj = BytesIO()
     s3_client.download_fileobj(S3_BUCKET_NAME, filename, file_obj)
     file_obj.seek(0)
     return file_obj.read()
 
-async def notify_frontend(filename, file_type, status):
-    for connection in sse_connections:
-        await connection.put({
-            "event": "file_processed",
-            "data": {
-                "filename": filename,
-                "file_type": file_type,
-                "status": status
-            }
-        })
+async def notify_frontend(filename, status):
+    event_data = {
+        "filename": filename,
+        "status": status
+    }
+    message = f"{json.dumps(event_data)}\n\n"
+    for queue in sse_connections:
+        await queue.put(message)
+    log_debug_info(f"Notify frontend: {message}")
+
 
 def initialize_API():
     try:
@@ -128,7 +134,7 @@ def process_resume(text, filename, flag):
     output_stream = BytesIO()
     doc.save(output_stream)
 
-    return output_stream.getvalue()
+    return final_response.encode('utf-8'), output_stream.getvalue()
 
 
 def process_each_file(filename, file_type):
@@ -141,6 +147,8 @@ def process_each_file(filename, file_type):
         if not client:
             raise RuntimeError("API client initialization failed")
 
+        update_file_status(filename, 'in progress')
+        asyncio.run(notify_frontend(filename, 'in progress'))
         # Retrieve file from S3
         file_content = download_file_from_s3(filename)
 
@@ -157,9 +165,9 @@ def process_each_file(filename, file_type):
                 text = OCR_text
 
         if file_type == 'doctors':
-            doc_bytes = process_resume(text, filename, True)
+            HTML_bytes, doc_bytes = process_resume(text, filename, True)
         elif file_type == 'nurses':
-            doc_bytes = process_resume(text, filename, False)
+            HTML_bytes, doc_bytes = process_resume(text, filename, False)
 
         elapsed_time = time.time() - start_time  # End timing
 
@@ -167,10 +175,17 @@ def process_each_file(filename, file_type):
 
         cost = calculate_cost(text)
         
-        output_filename = f"{filename.split('.pdf')[0]}-done.docx"
-        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=output_filename, Body=doc_bytes)
+        doc_output_filename = f"{filename.split('.pdf')[0]}-done.docx"
+        html_output_filename = f"{filename.split('.pdf')[0]}-done.html"
+        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=doc_output_filename, Body=doc_bytes)
+        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=html_output_filename, Body=HTML_bytes)
 
-        asyncio.run(notify_frontend(filename, file_type, 'processed'))
+
+        update_file_status(filename, 'processed')
+        asyncio.run(notify_frontend(filename, 'processed'))
+
 
     except Exception as e:
         logging.error(f"Error processing file {filename}: {e}", exc_info=True)
+        update_file_status(filename, 'error')
+        asyncio.run(notify_frontend(filename, 'error'))
