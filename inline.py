@@ -139,3 +139,39 @@ def calculate_cost(input_string: str, cost_per_million_tokens: float = 5) -> flo
     num_tokens = count_tokens(input_string)
     total_cost = (num_tokens / 1_000_000) * cost_per_million_tokens
     return total_cost
+
+config_path = 'config.json'
+import json
+from classes import log_debug_info
+from openai import OpenAI
+import instructor
+
+def initialize_API():
+    try:
+        with open(config_path, 'r') as file:
+            config = json.load(file)
+            api_key = config.get('api_key', '')
+
+        if not api_key:
+            error_message = 'API key not found in the configuration file.'
+            log_debug_info(f'[E] {error_message}')
+
+        client = OpenAI(api_key=api_key)
+        client = instructor.from_openai(client)
+        log_debug_info('[I] API key loaded successfully.')
+
+        # Return a dictionary representation of the instructor_client if needed
+        return client
+    except FileNotFoundError:
+        error_message = 'Configuration file not found.'
+        log_debug_info(f'[E] {error_message}')
+
+    except json.JSONDecodeError:
+        error_message = 'Invalid JSON format in the configuration file.'
+        log_debug_info(f'[E] {error_message}')
+
+    except Exception as e:
+        error_message = f'An error occurred while loading the API key: {str(e)}'
+        log_debug_info(f'[E] {error_message}')
+    
+    return None
