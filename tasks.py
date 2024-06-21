@@ -11,11 +11,13 @@ from format import *
 from io import BytesIO
 from openai import OpenAI
 from htmldocx import HtmlToDocx
+from inline import initialize_API
 import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor
 from ocr import extract_text_from_image
 from inline import extract_text_from_file, calculate_cost
 import pdb
+from datetime import datetime
 
 # Load AWS credentials from environment variables or your configuration management system
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
@@ -23,8 +25,8 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 #S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 S3_BUCKET_NAME = 'smart-resume-hub'
 
-api_key = ''
-config_path = 'config.json'
+pdb.set_trace()
+
 sse_connections = []
 file_statuses = {}
 
@@ -55,36 +57,6 @@ async def notify_frontend(filename, status):
         await queue.put(message)
     log_debug_info(f"Notify frontend: {message}")
 
-
-def initialize_API():
-    try:
-        with open(config_path, 'r') as file:
-            config = json.load(file)
-            api_key = config.get('api_key', '')
-
-        if not api_key:
-            error_message = 'API key not found in the configuration file.'
-            log_debug_info(f'[E] {error_message}')
-
-        client = OpenAI(api_key=api_key)
-        client = instructor.from_openai(client)
-        log_debug_info('[I] API key loaded successfully.')
-
-        # Return a dictionary representation of the instructor_client if needed
-        return client
-    except FileNotFoundError:
-        error_message = 'Configuration file not found.'
-        log_debug_info(f'[E] {error_message}')
-
-    except json.JSONDecodeError:
-        error_message = 'Invalid JSON format in the configuration file.'
-        log_debug_info(f'[E] {error_message}')
-
-    except Exception as e:
-        error_message = f'An error occurred while loading the API key: {str(e)}'
-        log_debug_info(f'[E] {error_message}')
-    
-    return None
 
 def process_resume(text, filename, flag):
     meta_data = extract_metadata(client, text, filename)
@@ -149,7 +121,9 @@ def process_each_file(filename, file_type):
 
         update_file_status(filename, 'in progress')
         asyncio.run(notify_frontend(filename, 'in progress'))
+        
         # Retrieve file from S3
+
         file_content = download_file_from_s3(filename)
 
         start_time = time.time()
@@ -174,11 +148,20 @@ def process_each_file(filename, file_type):
         log_debug_info(f"[F] Processing file {filename} took {elapsed_time} seconds")
 
         cost = calculate_cost(text)
+
+        metadata = {
+            'name': filename,
+            'date': str(datetime.utcnow().isoformat()) + 'Z',
+            'status': 'processed',
+            'label': 'Resume',
+            'cost': str(cost),
+            'process_time': str(elapsed_time)
+        }
         
         doc_output_filename = f"{filename.split('.pdf')[0]}-done.docx"
         html_output_filename = f"{filename.split('.pdf')[0]}-done.html"
-        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=doc_output_filename, Body=doc_bytes)
-        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=html_output_filename, Body=HTML_bytes)
+        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=doc_output_filename, Body=doc_bytes, Metadata=metadata)
+        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=html_output_filename, Body=HTML_bytes, Metadata=metadata)
 
 
         update_file_status(filename, 'processed')

@@ -1,0 +1,13 @@
+POST http://localhost:8000/api/process
+Content-Type: multipart/form-data; boundary=---011000010111000001101001
+
+-----011000010111000001101001
+Content-Disposition: form-data; name="file"; filename="Ayala, Dwight MD - CV.pdf"
+Content-Type: application/pdf
+
+< /home/cena/apps/Upwork/snap-resume-back-end/Resume_Sample/Ayala, Dwight MD - CV.pdf
+-----011000010111000001101001
+Content-Disposition: form-data; name="file_type"
+
+pdf
+-----011000010111000001101001--

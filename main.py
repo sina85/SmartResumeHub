@@ -1,8 +1,9 @@
 from tasks import process_each_file, sse_connections, s3_client, S3_BUCKET_NAME, get_file_status
-from fastapi import HTTPException, File, UploadFile, Form, FastAPI, Depends
+from fastapi import HTTPException, File, UploadFile, Form, FastAPI, Depends, status
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
-from botocore.exceptions import NoCredentialsError
+from fastapi.security import OAuth2PasswordRequestForm
+from botocore.exceptions import NoCredentialsError, ClientError
 from sse_starlette.sse import EventSourceResponse
 from fastapi.requests import Request
 from sqlalchemy.orm import Session
@@ -13,6 +14,7 @@ from models import UserCredits
 from classes import log_debug_info 
 from pydantic import BaseModel
 from psql import get_db
+from many_to_one import process_many_to_one
 from schemas import CreateCheckoutSessionRequest
 import concurrent.futures
 import tempfile
@@ -20,6 +22,13 @@ import asyncio
 from models import UserCredits, User
 import stripe
 import json
+from datetime import datetime, timedelta
+from format import generate_missing_info_email
+
+
+from auth import authenticate_user, create_access_token, Token, get_current_active_user, User
+from auth_utils import ACCESS_TOKEN_EXPIRE_MINUTES
+from classes import log_debug_info
 
 app = FastAPI()
 
@@ -42,114 +51,38 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+@app.post("/token", response_model=Token)
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
 
-def initialize_stripe():
-    try:
-        with open('config.json', 'r') as file:
-            config = json.load(file)
-            stripe_secret_key = config.get('stripe_secret_key', '')
+    fake_users_db = {
+        "johndoe": {
+            "username": "johndoe",
+            "hashed_password": "$2b$12$KIXx0hXbGZlqX8kzC3AIuOkW6ILuKqkCQHlfzT9zCH5M2.lAF0vH6",  # "secret"
+        }
+    }
 
-        if not stripe_secret_key:
-            error_message = 'stripe_secret_key not found in the configuration file.'
-            log_debug_info(f'[E] {error_message}')
-
-        stripe.api_key = stripe_secret_key
-
-        log_debug_info('[I] stripe_secret_key loaded successfully.')
-
-    except FileNotFoundError:
-        error_message = 'Configuration file not found.'
-        log_debug_info(f'[E] {error_message}')
-
-    except json.JSONDecodeError:
-        error_message = 'Invalid JSON format in the configuration file.'
-        log_debug_info(f'[E] {error_message}')
-
-    except Exception as e:
-        error_message = f'An error occurred while loading the stripe_secret_key: {str(e)}'
-        log_debug_info(f'[E] {error_message}')
-    
-    return None
-
-@app.post("/webhook")
-async def stripe_webhook(request: Request, db: Session = Depends(get_db)):
-    payload = await request.body()
-    sig_header = request.headers.get('stripe-signature')
-    endpoint_secret = 'whsec_...'  # webhook secret
-
-    try:
-        event = stripe.Webhook.construct_event(
-            payload, sig_header, endpoint_secret
+    user = authenticate_user(fake_users_db, form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
         )
-    except ValueError as e:
-        # Invalid payload
-        raise HTTPException(status_code=400, detail="Invalid payload")
-    except stripe.error.SignatureVerificationError as e:
-        # Invalid signature
-        raise HTTPException(status_code=400, detail="Invalid signature")
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
 
-    # Handle the event
-    if event['type'] == 'checkout.session.completed':
-        session = event['data']['object']
+@app.get("/users/me/", response_model=User)
+async def read_users_me(current_user: User = Depends(get_current_active_user)):
+    return current_user
 
-        # Retrieve the session and update user credits
-        user_id = session['client_reference_id']
-        credits_purchased = session['metadata']['credits']
-
-        user = db.query(User).filter(User.id == user_id).first()
-        if user:
-            user.credits += int(credits_purchased)
-            db.commit()
-
-            # Notify the front-end (implement as needed)
-
-    return {"status": "success"}
-
-@app.post("/api/create-checkout-session")
-def create_checkout_session(request: CreateCheckoutSessionRequest, db: Session = Depends(get_db)):
-    try:
-        log_debug_info(f"Received request data: {request}")
-        session = stripe.checkout.Session.create(
-            payment_method_types=["card"],
-            line_items=[{
-                "price_data": {
-                    "currency": "usd",
-                    "product_data": {
-                        "name": f"{request.credits} File Processing Credits",
-                    },
-                    "unit_amount": request.amount,  # Amount in cents
-                },
-                "quantity": 1,
-            }],
-            mode="payment",
-            success_url="http://localhost:3000/success",
-            cancel_url="http://localhost:3000/cancel",
-        )
-        return {"id": session.id}
-    except Exception as e:
-        log_debug_info(f"Error creating checkout session: {e}")
-        raise HTTPException(status_code=400, detail=str(e))
-
-@app.get("/api/credits/balance")
-async def get_credits_balance(user_id: int, db: AsyncSession = Depends(get_db)):
-    try:
-        log_debug_info(f"Fetching credits for user_id: {user_id}")
-        result = await db.execute(
-            text("SELECT credits FROM users WHERE id = :user_id"), {"user_id": user_id}
-        )
-        user = result.fetchone()
-        if not user:
-            raise HTTPException(status_code=404, detail="User not found")
-        return {"credits": user.credits}
-    except Exception as e:
-        log_debug_info(f"Error fetching credits balance: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.post("/api/process")
-async def process_file(file: UploadFile = File(...), file_type: str = Form(...)):
-    log_debug_info(f"[*] Received file: {file.filename} with type: {file_type}")
+@app.post("/api/process/{filename}")
+async def process_file(filename: str):
+    log_debug_info(f"[*] Received file: {filename} with type")#: {file_type}")
     loop = asyncio.get_event_loop()
-    await loop.run_in_executor(executor, process_each_file, file.filename, file_type)
+    await loop.run_in_executor(executor, process_each_file, filename, 'doctors')
     return {"message": "Processing started"}
 
 @app.get("/api/file-status/{filename}")
@@ -177,7 +110,12 @@ async def sse_endpoint(request: Request):
 @app.post("/api/upload")
 async def upload_file(file: UploadFile = File(...)):
     try:
-        s3_client.upload_fileobj(file.file, S3_BUCKET_NAME, file.filename)
+        metadata = {
+            'name': file.filename,
+            'date': datetime.utcnow().isoformat() + 'Z',  # Current date and time in ISO format
+            'status': 'uploaded',
+        }
+        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=file.filename, Body=file.file, Metadata=metadata)
         file_url = f"https://{S3_BUCKET_NAME}.s3.amazonaws.com/{file.filename}"
         return {"fileUrl": file_url}
     except NoCredentialsError:
@@ -211,6 +149,62 @@ async def fetch_file_as_html(filename: str):
         raise HTTPException(status_code=500, detail="AWS credentials not available")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+class FileMetadata(BaseModel):
+    name: str
+    date: str
+    status: str
+    label: str
+    pages: str
+
+@app.get("/api/files", response_model=list[FileMetadata])
+async def get_files():
+    try:
+        response = s3_client.list_objects_v2(Bucket=S3_BUCKET_NAME)
+        files = []
+
+        if 'Contents' in response:
+            for obj in response['Contents']:
+                # Assume metadata is stored in a specific format in S3
+                metadata = s3_client.head_object(Bucket=S3_BUCKET_NAME, Key=obj['Key'])
+                file_metadata = {
+                    "name": obj['Key'],
+                    "date": obj['LastModified'].isoformat(),
+                    "status": metadata.get('Metadata', {}).get('status', 'unknown'),
+                    "label": metadata.get('Metadata', {}).get('label', 'unknown'),
+                    "pages": metadata.get('Metadata', {}).get('pages', 'unknown'),
+                }
+                files.append(file_metadata)
+
+        return files
+    except NoCredentialsError:
+        raise HTTPException(status_code=500, detail="AWS credentials not available")
+    except ClientError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/vaccination")
+async def many_to_one_vaccination(files: list[str]):
+    log_debug_info(f"[*] Received vaccination files: {files}")
+    loop = asyncio.get_event_loop()
+    await loop.run_in_executor(executor, process_many_to_one, files)
+    return {"message": "Vaccination processing started successfully"}
+
+@app.post("/api/certification")
+async def many_to_one_certification(files: list[str]):
+    log_debug_info(f"[*] Received certification files: {files}")
+    loop = asyncio.get_event_loop()
+    await loop.run_in_executor(executor, process_many_to_one, files)
+    return {"message": "Certification processing started successfully"}
+
+@app.post("/api/generate-email")
+async def generate_missing_info_email_endpoint(data: dict):
+    sections_missing = data.get("sections_missing", [])
+    description = data.get("description", "")
+    log_debug_info(f"[*] Generating email with sections: {sections_missing} and description: {description}")
+    email_content = generate_missing_info_email(sections_missing, description)
+    return {"emailContent": email_content}
 
 @app.get("/")
 async def read_root():

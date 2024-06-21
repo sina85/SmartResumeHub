@@ -204,3 +204,56 @@ def get_final_html(final_response):
         </style>
         {final_response}
     """
+
+
+def generate_missing_info_email(section_missing, description):
+    email_template = """
+    Subject: Action Required: Missing Information in Your Resume
+
+    Dear [Recipient's Name],
+
+    I hope this message finds you well.
+
+    We have reviewed your resume and found that some essential information is missing. To ensure that your application is complete and receives full consideration, please provide the following details:
+
+    [General Description]
+
+    Missing Information:
+
+    [Missing Information]
+
+    To facilitate this process, please fill out the form at the following link:
+
+    [Link to the Form]
+
+    Thank you for your prompt attention to this matter. Providing the missing information will help us proceed with your application more efficiently.
+
+    Best regards,
+
+    [Your Name]
+    [Your Position]
+    [Your Contact Information]
+    [Company Name]
+    """
+
+    # Generate the missing information list
+    missing_info_list = ""
+    for index, (section, info) in enumerate(section_missing.items(), start=1):
+        missing_info_list += f"{index}. {section}: {info}\n"
+
+    # Generate the link (assuming the client can generate a unique link for the form)
+    # link_to_form = client.generate_form_link()
+
+    # Replace placeholders with actual values
+    email_content = email_template.replace("[Recipient's Name]", "John Doe")  # Replace with actual recipient's name
+    email_content = email_content.replace("[General Description]", description if description else "")
+    email_content = email_content.replace("[Missing Information]", missing_info_list)
+    
+    # email_content = email_content.replace("[Link to the Form]", link_to_form)
+    
+    email_content = email_content.replace("[Your Name]", "Jane Smith")  # Replace with actual sender's name
+    email_content = email_content.replace("[Your Position]", "HR Manager")  # Replace with actual sender's position
+    email_content = email_content.replace("[Your Contact Information]", "hr@example.com")  # Replace with actual sender's contact information
+    email_content = email_content.replace("[Company Name]", "ABC Corp")  # Replace with actual company name
+
+    return email_content

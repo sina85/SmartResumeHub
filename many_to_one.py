@@ -3,11 +3,13 @@ from htmldocx import HtmlToDocx
 import fitz
 from classes import log_debug_info
 from io import BytesIO
+from inline import initialize_API 
 from gpt import classify_type_many_to_one, extract_certification_info, extract_vaccination_info
 from classes import ImmunizationRecord_Many_to_One, ImmunizationRecord_Many_to_One_List, Certification_Many_to_One_List
 import pdb
 import json
 import concurrent
+from datetime import datetime
 
 class CustomEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -29,17 +31,39 @@ def dump_data_to_file(data, filename):
 def load_data_from_file(filename):
     with open(filename, 'r') as f:
         return json.load(f, object_hook=custom_decoder)
+import boto3
+from io import BytesIO
 
-def process_many_to_one(client, many_to_one_files):
+
+AWS_ACCESS_KEY_ID = 'your_access_key_id'
+AWS_SECRET_ACCESS_KEY = 'your_secret_access_key'
+S3_BUCKET_NAME = 'your_bucket_name'
+
+s3_client = boto3.client(
+    's3',
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+)
+
+def download_file_from_s3(filename):
+    file_obj = BytesIO()
+    s3_client.download_fileobj(S3_BUCKET_NAME, filename, file_obj)
+    file_obj.seek(0)
+    return file_obj.read()
+
+def process_many_to_one(list_of_file_names):
+
+    client = initialize_API()
+
     vaccine_consolidated_records = []
     certification_consolidated_records = []
 
-    def process__file(file):
-        filename, file_content = file.name, file.getvalue()
+    def process__file(filename):
+        file_content = download_file_from_s3(filename)
 
         log_debug_info(f'[$] Processing many to one {filename}')
 
-        classification = classify_type_many_to_one(client, file)
+        classification = classify_type_many_to_one(client, file_content)
 
         if classification == 'Vaccination Record':
             log_debug_info(f'[$] File is identified as Vaccination Record Processing vaccination many to one {filename}')
@@ -54,7 +78,7 @@ def process_many_to_one(client, many_to_one_files):
             return None
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        results = list(executor.map(process__file, many_to_one_files))
+        results = list(executor.map(process__file, list_of_file_names))
 
     for result in results:
         if result is not None:
@@ -71,7 +95,7 @@ def process_many_to_one(client, many_to_one_files):
     }
 
     # Dump the results to a file
-    dump_data_to_file(results, "consolidated_records.json")
+    # dump_data_to_file(results, "consolidated_records.json")
     
     # Load results from the file (optional for debugging)
     
@@ -86,6 +110,21 @@ def process_many_to_one(client, many_to_one_files):
     doc = new_parser.parse_html_string(final_html)
     output_stream = BytesIO()
     doc.save(output_stream)
+
+    tdate = str(datetime.utcnow().isoformat()) + 'Z'
+
+    metadata = {
+        'name': f'consolidated_records_{tdate}.docx',
+        'date': tdate,
+        'status': 'processed',
+        'label': 'Resume',
+        'cost': 'N/A',
+        'process_time': 'N/A'
+    }
+
+
+    s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=f'consolidated_records_{tdate}.docx', Body=output_stream.getvalue(), Metadata=metadata)
+
 
     return [(f"consolidated_records.docx", output_stream.getvalue())]
 
