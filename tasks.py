@@ -12,9 +12,6 @@ from ocr import extract_text_from_image
 from inline import extract_text_from_file, calculate_cost
 from datetime import datetime
 
-s3_client = None
-S3_BUCKET_NAME = ''
-
 sse_connections = []
 file_statuses = {}
 

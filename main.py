@@ -1,4 +1,4 @@
-from tasks import process_each_file, sse_connections, s3_client, S3_BUCKET_NAME, get_file_status
+from tasks import process_each_file, sse_connections, get_file_status
 from fastapi import HTTPException, File, UploadFile, FastAPI
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
