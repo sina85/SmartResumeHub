@@ -7,7 +7,7 @@ from classes import ImmunizationRecord_Many_to_One, Certification_Many_to_One_Li
 import json
 import concurrent
 from datetime import datetime
-from tasks import s3_client, S3_BUCKET_NAME
+from main import s3_client, S3_BUCKET_NAME
 
 class CustomEncoder(json.JSONEncoder):
     def default(self, obj):

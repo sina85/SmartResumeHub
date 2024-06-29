@@ -13,6 +13,7 @@ import tempfile
 import asyncio
 from datetime import datetime
 from format import generate_missing_info_email
+from inline import initialize_API
 
 
 # from auth import authenticate_user, create_access_token, Token, get_current_active_user, User
@@ -22,6 +23,8 @@ from classes import log_debug_info
 app = FastAPI()
 
 executor = concurrent.futures.ThreadPoolExecutor(max_workers=100)
+
+client, s3_client, S3_BUCKET_NAME = initialize_API()
 
 class PresignedUrlRequest(BaseModel):
     fileName: str
@@ -71,7 +74,7 @@ app.add_middleware(
 async def process_file(filename: str):
     log_debug_info(f"[*] Received file: {filename} with type")#: {file_type}")
     loop = asyncio.get_event_loop()
-    await loop.run_in_executor(executor, process_each_file, filename, 'doctors', 'test')
+    await loop.run_in_executor(executor, process_each_file, filename, 'doctors', 'test', client, s3_client, S3_BUCKET_NAME)
     return {"message": "Processing started"}
 
 @app.get("/api/file-status/{filename}")

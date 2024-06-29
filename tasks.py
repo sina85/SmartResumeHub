@@ -40,7 +40,7 @@ async def notify_frontend(filename, status):
     log_debug_info(f"Notify frontend: {message}")
 
 
-def process_resume(text, filename, flag):
+def process_resume(text, filename, flag, client):
     meta_data = extract_metadata(client, text, filename)
 
     start_time = time.time()
@@ -99,18 +99,9 @@ def process_resume(text, filename, flag):
 
     return result
 
-def process_each_file(filename, file_type, user_id):
-    global s3_client
-    global S3_BUCKET_NAME
+def process_each_file(filename, file_type, user_id, client, s3_client, S3_BUCKET_NAME):
 
     try:
-        global client
-
-        client, _s3_client, _S3_BUCKET_NAME = initialize_API()
-
-        s3_client = _s3_client
-        S3_BUCKET_NAME = _S3_BUCKET_NAME
-
         if not client:
             raise RuntimeError("API client initialization failed")
 
@@ -134,9 +125,9 @@ def process_each_file(filename, file_type, user_id):
                 text = OCR_text
 
         if file_type == 'doctors':
-            json_result = process_resume(text, filename, True)
+            json_result = process_resume(text, filename, True, client)
         elif file_type == 'nurses':
-            json_result = process_resume(text, filename, False)
+            json_result = process_resume(text, filename, False, client)
 
         elapsed_time = time.time() - start_time
 
