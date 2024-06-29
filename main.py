@@ -180,14 +180,14 @@ async def get_files():
 async def many_to_one_vaccination(files: list[str]):
     log_debug_info(f"[*] Received vaccination files: {files}")
     loop = asyncio.get_event_loop()
-    await loop.run_in_executor(executor, process_many_to_one, files, 'Vaccination Record', 'test')
+    await loop.run_in_executor(executor, process_many_to_one, files, 'Vaccination Record', 'test', s3_client, S3_BUCKET_NAME)
     return {"message": "Vaccination processing started successfully"}
 
 @app.post("/api/certification")
 async def many_to_one_certification(files: list[str]):
     log_debug_info(f"[*] Received certification files: {files}")
     loop = asyncio.get_event_loop()
-    await loop.run_in_executor(executor, process_many_to_one, files, 'Certification', 'test')
+    await loop.run_in_executor(executor, process_many_to_one, files, 'Certification', 'test', s3_client, S3_BUCKET_NAME)
     return {"message": "Certification processing started successfully"}
 
 @app.post("/api/generate-email")

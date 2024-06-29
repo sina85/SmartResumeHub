@@ -7,7 +7,6 @@ from classes import ImmunizationRecord_Many_to_One, Certification_Many_to_One_Li
 import json
 import concurrent
 from datetime import datetime
-from main import s3_client, S3_BUCKET_NAME
 
 class CustomEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -30,13 +29,13 @@ def load_data_from_file(filename):
     with open(filename, 'r') as f:
         return json.load(f, object_hook=custom_decoder)
 
-def download_file_from_s3(filename):
+def download_file_from_s3(filename, s3_client, S3_BUCKET_NAME):
     file_obj = BytesIO()
     s3_client.download_fileobj(S3_BUCKET_NAME, filename, file_obj)
     file_obj.seek(0)
     return file_obj.read()
 
-def process_many_to_one(list_of_file_names, classification, user_id):
+def process_many_to_one(list_of_file_names, classification, user_id, s3_client, S3_BUCKET_NAME):
 
     client = initialize_API()
 
@@ -45,7 +44,7 @@ def process_many_to_one(list_of_file_names, classification, user_id):
 
     def process__file(filename):
         nonlocal classification
-        file_content = download_file_from_s3(filename)
+        file_content = download_file_from_s3(filename, s3_client, S3_BUCKET_NAME)
 
         log_debug_info(f'[$] Processing many to one {filename}')
 
