@@ -1,5 +1,5 @@
 from tasks import process_each_file, sse_connections, get_file_status
-from fastapi import HTTPException, File, UploadFile, FastAPI
+from fastapi import HTTPException, File, UploadFile, FastAPI, Form
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from botocore.exceptions import NoCredentialsError, ClientError
@@ -99,22 +99,27 @@ async def sse_endpoint(request: Request):
 
     return EventSourceResponse(event_generator())
 
-@app.post("/api/upload")
-async def upload_file(file: UploadFile = File(...)):
+async def upload_file(user_id: str = Form(...), file: UploadFile = File(...)):
     try:
+        # Generate metadata and new filename
         metadata = {
             'name': file.filename,
             'date': datetime.utcnow().isoformat() + 'Z',  # Current date and time in ISO format
             'status': 'uploaded',
         }
-        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=file.filename, Body=file.file, Metadata=metadata)
-        file_url = f"https://{S3_BUCKET_NAME}.s3.amazonaws.com/{file.filename}"
+        new_filename = f"{user_id}/{file.filename}"
+        
+        # Upload the file to S3
+        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=new_filename, Body=file.file, Metadata=metadata)
+        
+        # Generate the file URL
+        file_url = f"https://{S3_BUCKET_NAME}.s3.amazonaws.com/{new_filename}"
+        
         return {"fileUrl": file_url}
     except NoCredentialsError:
         raise HTTPException(status_code=500, detail="AWS credentials not available")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 @app.get("/api/fetch/{filename}")
 async def fetch_file(filename: str):
     try:
