@@ -1,15 +1,13 @@
-from inline import extract_text_from_file
-from htmldocx import HtmlToDocx
 import fitz
 from classes import log_debug_info
 from io import BytesIO
 from inline import initialize_API 
 from gpt import classify_type_many_to_one, extract_certification_info, extract_vaccination_info
-from classes import ImmunizationRecord_Many_to_One, ImmunizationRecord_Many_to_One_List, Certification_Many_to_One_List
-import pdb
+from classes import ImmunizationRecord_Many_to_One, Certification_Many_to_One_List
 import json
 import concurrent
 from datetime import datetime
+from tasks import s3_client, S3_BUCKET_NAME
 
 class CustomEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -31,19 +29,6 @@ def dump_data_to_file(data, filename):
 def load_data_from_file(filename):
     with open(filename, 'r') as f:
         return json.load(f, object_hook=custom_decoder)
-import boto3
-from io import BytesIO
-
-
-AWS_ACCESS_KEY_ID = 'your_access_key_id'
-AWS_SECRET_ACCESS_KEY = 'your_secret_access_key'
-S3_BUCKET_NAME = 'your_bucket_name'
-
-s3_client = boto3.client(
-    's3',
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
-)
 
 def download_file_from_s3(filename):
     file_obj = BytesIO()
@@ -51,7 +36,7 @@ def download_file_from_s3(filename):
     file_obj.seek(0)
     return file_obj.read()
 
-def process_many_to_one(list_of_file_names):
+def process_many_to_one(list_of_file_names, classification, user_id):
 
     client = initialize_API()
 
@@ -59,12 +44,14 @@ def process_many_to_one(list_of_file_names):
     certification_consolidated_records = []
 
     def process__file(filename):
+        nonlocal classification
         file_content = download_file_from_s3(filename)
 
         log_debug_info(f'[$] Processing many to one {filename}')
 
-        classification = classify_type_many_to_one(client, file_content)
-
+        if classification == 'Unknown':
+            classification = classify_type_many_to_one(client, file_content)
+        
         if classification == 'Vaccination Record':
             log_debug_info(f'[$] File is identified as Vaccination Record Processing vaccination many to one {filename}')
             records = process_record(client, file_content, 'vaccination', filename)
@@ -74,7 +61,7 @@ def process_many_to_one(list_of_file_names):
             records = process_record(client, file_content, 'certification', filename)
             return {"filename": filename, "records": records, "type": 'certification'}
         else:
-            log_debug_info(f'[F] GPT failed to classify the document correctly and responded with:{filename}')
+            log_debug_info(f'[F] Failed to classify the document correctly:{filename} : {classification}')
             return None
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -89,10 +76,51 @@ def process_many_to_one(list_of_file_names):
 
     log_debug_info(f'[D] Processing many to one complete, creating final file')
 
-    results = {
-        "vaccine_consolidated_records": vaccine_consolidated_records,
-        "certification_consolidated_records": certification_consolidated_records
-    }
+    # Extract name for the filenames
+    if vaccine_consolidated_records:
+        name = vaccine_consolidated_records[0]['records']['name']
+            # Define the output filenames
+        vaccine_output_filename = f"{name}_vaccination_records.json"
+
+        # Dump the results to files
+        json_vaccine_bytes = json.dumps(vaccine_consolidated_records).encode('utf-8')
+
+        tdate = str(datetime.utcnow().isoformat()) + 'Z'
+
+        metadata = {
+            'name': vaccine_output_filename,
+            'date': tdate,
+            'status': 'processed',
+            'label': 'vaccination_records',
+            'cost': 'N/A',
+            'process_time': 'N/A'
+        }
+
+        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=f"{user_id}/{vaccine_output_filename}", Body=json_vaccine_bytes, Metadata=metadata)
+
+        return vaccine_output_filename
+    elif certification_consolidated_records:
+        name = certification_consolidated_records[0]['records']['name']
+        # Define the output filenames
+        certification_output_filename = f"{name}_certification.json"
+
+        # Dump the results to files
+        json_certification_bytes = json.dumps(certification_consolidated_records).encode('utf-8')
+
+        tdate = str(datetime.utcnow().isoformat()) + 'Z'
+
+        metadata = {
+            'name': certification_output_filename,
+            'date': tdate,
+            'status': 'processed',
+            'label': 'certification_records',
+            'cost': 'N/A',
+            'process_time': 'N/A'
+        }
+
+        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=f"{user_id}/{certification_output_filename}", Body=json_certification_bytes, Metadata=metadata)
+
+        return certification_output_filename
 
     # Dump the results to a file
     # dump_data_to_file(results, "consolidated_records.json")
@@ -104,29 +132,16 @@ def process_many_to_one(list_of_file_names):
     #vaccine_consolidated_records = loaded_results["vaccine_consolidated_records"]
     #certification_consolidated_records = loaded_results["certification_consolidated_records"]
 
-    final_html = create_final_html(vaccine_consolidated_records, certification_consolidated_records)
+    # final_html = create_final_html(vaccine_consolidated_records, certification_consolidated_records)
 
-    new_parser = HtmlToDocx()
-    doc = new_parser.parse_html_string(final_html)
-    output_stream = BytesIO()
-    doc.save(output_stream)
+    # new_parser = HtmlToDocx()
+    # doc = new_parser.parse_html_string(final_html)
+    # output_stream = BytesIO()
+    # doc.save(output_stream)
 
-    tdate = str(datetime.utcnow().isoformat()) + 'Z'
+    log_debug_info("Error vaccine_consolidated_records and certification_consolidated_records empty")
 
-    metadata = {
-        'name': f'consolidated_records_{tdate}.docx',
-        'date': tdate,
-        'status': 'processed',
-        'label': 'Resume',
-        'cost': 'N/A',
-        'process_time': 'N/A'
-    }
-
-
-    s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=f'consolidated_records_{tdate}.docx', Body=output_stream.getvalue(), Metadata=metadata)
-
-
-    return [(f"consolidated_records.docx", output_stream.getvalue())]
+    return f"Error vaccine_consolidated_records and certification_consolidated_records empty"
 
 def process_record(client, file_content, record_type, filename):
     # Existing code for processing vaccination records

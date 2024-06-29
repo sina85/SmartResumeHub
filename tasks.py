@@ -1,47 +1,29 @@
-import os
 import time
 import json
-import boto3
 import logging
 import asyncio
-import instructor
 from classes import *
 from gpt import *
 from format import *
 from io import BytesIO
-from openai import OpenAI
-from htmldocx import HtmlToDocx
 from inline import initialize_API
-import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor
 from ocr import extract_text_from_image
 from inline import extract_text_from_file, calculate_cost
-import pdb
 from datetime import datetime
 
-# Load AWS credentials from environment variables or your configuration management system
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-#S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
-S3_BUCKET_NAME = 'smart-resume-hub'
-
-pdb.set_trace()
+s3_client = None
+S3_BUCKET_NAME = ''
 
 sse_connections = []
 file_statuses = {}
-
-s3_client = boto3.client(
-    's3',
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
-)
 
 def update_file_status(filename, status):
     file_statuses[filename] = status
 def get_file_status(filename):
     return file_statuses.get(filename, 'not processed')
 
-def download_file_from_s3(filename):
+def download_file_from_s3(s3_client, S3_BUCKET_NAME, filename):
     file_obj = BytesIO()
     s3_client.download_fileobj(S3_BUCKET_NAME, filename, file_obj)
     file_obj.seek(0)
@@ -75,46 +57,59 @@ def process_resume(text, filename, flag):
 
     pe, work, lc = extraction_results
 
+    # Combine the results into a single JSON object
+    result = {
+        "personal_and_educational_details": json.loads(pe.json()),
+        "work_experience": json.loads(work.json()),
+        "licenses_and_certifications": json.loads(lc.json())
+    }
+
     elapsed_time = time.time() - start_time
 
     log_debug_info(f"[F] Detail Extraction took {elapsed_time} for {filename}.")
-    log_debug_info(f"[S] Formatting the data!")
+    # log_debug_info(f"[S] Formatting the data!")
 
-    start_time = time.time()
+    # start_time = time.time()
 
-    with ThreadPoolExecutor(max_workers=4) as executor:
-        futures = [
-            executor.submit(format_personal_details_into_html, pe.pdetail, filename),
-            executor.submit(format_educational_details_into_html, pe.edetail, filename),
-            executor.submit(format_work_experience_details_into_html, work, flag, filename),
-            executor.submit(format_other_details_into_html, lc.licenses, lc.certifications, filename)
-        ]
+    # with ThreadPoolExecutor(max_workers=4) as executor:
+    #     futures = [
+    #         executor.submit(format_personal_details_into_html, pe.pdetail, filename),
+    #         executor.submit(format_educational_details_into_html, pe.edetail, filename),
+    #         executor.submit(format_work_experience_details_into_html, work, flag, filename),
+    #         executor.submit(format_other_details_into_html, lc.licenses, lc.certifications, filename)
+    #     ]
 
-        # Wait for all futures to complete
-        formatting_results = [future.result() for future in futures]
+    #     # Wait for all futures to complete
+    #     formatting_results = [future.result() for future in futures]
 
-    personal_info, educational_info, work_info, other_info = formatting_results
+    # personal_info, educational_info, work_info, other_info = formatting_results
 
-    final_response = format_final_template(personal=personal_info, educational=educational_info, work_experience=work_info, other=other_info, filename=filename)
+    # final_response = format_final_template(personal=personal_info, educational=educational_info, work_experience=work_info, other=other_info, filename=filename)
 
-    elapsed_time = time.time() - start_time  # End timing
+    # elapsed_time = time.time() - start_time  # End timing
 
-    log_debug_info(f"[F] Formatting file {filename} took {elapsed_time} seconds!")
+    # log_debug_info(f"[F] Formatting file {filename} took {elapsed_time} seconds!")
 
-    new_parser = HtmlToDocx()
-    doc = new_parser.parse_html_string(final_response)
-    output_stream = BytesIO()
-    doc.save(output_stream)
+    # new_parser = HtmlToDocx()
+    # doc = new_parser.parse_html_string(final_response)
+    # output_stream = BytesIO()
+    # doc.save(output_stream)
 
-    return final_response.encode('utf-8'), output_stream.getvalue()
+    # return final_response.encode('utf-8'), output_stream.getvalue()
 
+    return result
 
-def process_each_file(filename, file_type):
+def process_each_file(filename, file_type, user_id):
+    global s3_client
+    global S3_BUCKET_NAME
 
     try:
         global client
 
-        client = initialize_API()
+        client, _s3_client, _S3_BUCKET_NAME = initialize_API()
+
+        s3_client = _s3_client
+        S3_BUCKET_NAME = _S3_BUCKET_NAME
 
         if not client:
             raise RuntimeError("API client initialization failed")
@@ -124,7 +119,7 @@ def process_each_file(filename, file_type):
         
         # Retrieve file from S3
 
-        file_content = download_file_from_s3(filename)
+        file_content = download_file_from_s3(filename, s3_client, S3_BUCKET_NAME)
 
         start_time = time.time()
 
@@ -139,11 +134,11 @@ def process_each_file(filename, file_type):
                 text = OCR_text
 
         if file_type == 'doctors':
-            HTML_bytes, doc_bytes = process_resume(text, filename, True)
+            json_result = process_resume(text, filename, True)
         elif file_type == 'nurses':
-            HTML_bytes, doc_bytes = process_resume(text, filename, False)
+            json_result = process_resume(text, filename, False)
 
-        elapsed_time = time.time() - start_time  # End timing
+        elapsed_time = time.time() - start_time
 
         log_debug_info(f"[F] Processing file {filename} took {elapsed_time} seconds")
 
@@ -157,16 +152,21 @@ def process_each_file(filename, file_type):
             'cost': str(cost),
             'process_time': str(elapsed_time)
         }
-        
-        doc_output_filename = f"{filename.split('.pdf')[0]}-done.docx"
-        html_output_filename = f"{filename.split('.pdf')[0]}-done.html"
-        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=doc_output_filename, Body=doc_bytes, Metadata=metadata)
-        s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=html_output_filename, Body=HTML_bytes, Metadata=metadata)
+
+        # Convert the result to a JSON string
+        json_bytes = json.dumps(json_result).encode('utf-8')
+
+        # Define the output filename for JSON and upload to S3
+        if filename.endswith('.pdf'):
+            json_output_filename = f"{user_id}/{filename.split('.pdf')[0]}.json"
+            s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=json_output_filename, Body=json_bytes, Metadata=metadata)
+        elif filename.endswith('.docx'):
+            json_output_filename = f"{user_id}/{filename.split('.docx')[0]}.json"
+            s3_client.put_object(Bucket=S3_BUCKET_NAME, Key=json_output_filename, Body=json_bytes, Metadata=metadata)
 
 
         update_file_status(filename, 'processed')
         asyncio.run(notify_frontend(filename, 'processed'))
-
 
     except Exception as e:
         logging.error(f"Error processing file {filename}: {e}", exc_info=True)

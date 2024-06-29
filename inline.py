@@ -10,6 +10,7 @@ import fitz  # PyMuPDF
 import base64
 import tiktoken
 import subprocess
+import boto3
 
 Image.MAX_IMAGE_PIXELS = None
 
@@ -160,8 +161,23 @@ def initialize_API():
         client = instructor.from_openai(client)
         log_debug_info('[I] API key loaded successfully.')
 
+        AWS_ACCESS_KEY_ID = config['AWS_ACCESS_KEY_ID']
+        AWS_SECRET_ACCESS_KEY = config['AWS_SECRET_ACCESS_KEY']
+        S3_BUCKET_NAME = config.get('S3_BUCKET_NAME', 'smart-resume-hub')
+
+        log_debug_info('[I] AWS key loaded successfully.')
+
+        s3_client = boto3.client(
+            's3',
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+        )
+        
+        log_debug_info('[I] AWS client initialized successfully.')
+
+
         # Return a dictionary representation of the instructor_client if needed
-        return client
+        return client, s3_client, S3_BUCKET_NAME
     except FileNotFoundError:
         error_message = 'Configuration file not found.'
         log_debug_info(f'[E] {error_message}')

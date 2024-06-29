@@ -13,7 +13,7 @@
 # celery -A tasks worker --loglevel=info &
 
 # Start the FastAPI app in the current shell
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn main:app --host 0.0.0.0 --port 8001 --reload
 
 # Wait for all background processes to finish
 #wait
