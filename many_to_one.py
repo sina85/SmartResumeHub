@@ -5,6 +5,7 @@ from inline import initialize_API
 from gpt import classify_type_many_to_one, extract_certification_info, extract_vaccination_info
 from classes import ImmunizationRecord_Many_to_One, Certification_Many_to_One_List
 import json
+from botocore.exceptions import ClientError
 import concurrent
 from datetime import datetime
 
@@ -29,11 +30,20 @@ def load_data_from_file(filename):
     with open(filename, 'r') as f:
         return json.load(f, object_hook=custom_decoder)
 
-def download_file_from_s3(filename, s3_client, S3_BUCKET_NAME):
+
+def download_file_from_s3(user_id, filename, s3_client, S3_BUCKET_NAME):
     file_obj = BytesIO()
-    s3_client.download_fileobj(S3_BUCKET_NAME, filename, file_obj)
-    file_obj.seek(0)
-    return file_obj.read()
+    full_filename = f"{user_id}/{filename}"
+    try:
+        s3_client.download_fileobj(S3_BUCKET_NAME, full_filename, file_obj)
+        file_obj.seek(0)
+        return file_obj.read()
+    except ClientError as e:
+        if e.response['Error']['Code'] == '404':
+            log_debug_info(f"The object {full_filename} does not exist in bucket {S3_BUCKET_NAME}.")
+            return None
+        else:
+            raise
 
 def process_many_to_one(list_of_file_names, classification, user_id, s3_client, S3_BUCKET_NAME):
 
@@ -43,8 +53,9 @@ def process_many_to_one(list_of_file_names, classification, user_id, s3_client, 
     certification_consolidated_records = []
 
     def process__file(filename):
-        nonlocal classification
-        file_content = download_file_from_s3(filename, s3_client, S3_BUCKET_NAME)
+        nonlocal classification, user_id
+
+        file_content = download_file_from_s3(user_id, filename, s3_client, S3_BUCKET_NAME)
 
         log_debug_info(f'[$] Processing many to one {filename}')
 

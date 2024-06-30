@@ -99,6 +99,7 @@ async def sse_endpoint(request: Request):
 
     return EventSourceResponse(event_generator())
 
+@app.post("/api/events")
 async def upload_file(user_id: str = Form(...), file: UploadFile = File(...)):
     try:
         # Generate metadata and new filename

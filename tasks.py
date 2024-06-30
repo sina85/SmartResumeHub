@@ -6,11 +6,11 @@ from classes import *
 from gpt import *
 from format import *
 from io import BytesIO
-from inline import initialize_API
 from concurrent.futures import ThreadPoolExecutor
 from ocr import extract_text_from_image
 from inline import extract_text_from_file, calculate_cost
 from datetime import datetime
+from botocore.exceptions import ClientError
 
 sse_connections = []
 file_statuses = {}
@@ -20,11 +20,19 @@ def update_file_status(filename, status):
 def get_file_status(filename):
     return file_statuses.get(filename, 'not processed')
 
-def download_file_from_s3(s3_client, S3_BUCKET_NAME, filename):
+def download_file_from_s3(user_id, filename, s3_client, S3_BUCKET_NAME):
     file_obj = BytesIO()
-    s3_client.download_fileobj(S3_BUCKET_NAME, filename, file_obj)
-    file_obj.seek(0)
-    return file_obj.read()
+    full_filename = f"{user_id}/{filename}"
+    try:
+        s3_client.download_fileobj(S3_BUCKET_NAME, full_filename, file_obj)
+        file_obj.seek(0)
+        return file_obj.read()
+    except ClientError as e:
+        if e.response['Error']['Code'] == '404':
+            log_debug_info(f"The object {full_filename} does not exist in bucket {S3_BUCKET_NAME}.")
+            return None
+        else:
+            raise
 
 async def notify_frontend(filename, status):
     event_data = {
@@ -106,8 +114,12 @@ def process_each_file(filename, file_type, user_id, client, s3_client, S3_BUCKET
         asyncio.run(notify_frontend(filename, 'in progress'))
         
         # Retrieve file from S3
+        file_content = download_file_from_s3(user_id, filename, s3_client, S3_BUCKET_NAME)
 
-        file_content = download_file_from_s3(filename, s3_client, S3_BUCKET_NAME)
+        if file_content is None:
+            update_file_status(filename, 'error')
+            asyncio.run(notify_frontend(filename, 'error'))
+            return
 
         start_time = time.time()
 
